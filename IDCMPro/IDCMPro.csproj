@@ -76,6 +76,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DCMControlLib\DCMControlLib.csproj">
+      <Project>{f280276f-8d7c-41ad-b62f-6e9f34693222}</Project>
+      <Name>DCMControlLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GCMControlLib\GCMControlLib.csproj">
+      <Project>{be798f7a-2d34-4fcc-b5fd-b071d8b75490}</Project>
+      <Name>GCMControlLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
-namespace IDCM
+namespace DCMDGV
 {
-    class DCMDGVButtonCell
+    public class DCMDGVButtonCell:DataGridViewTextBoxCell
     {
     }
 }

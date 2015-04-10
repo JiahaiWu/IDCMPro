@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GCMControlLib
+namespace IDCM.BaseItem
 {
-    public class GCMTabControl:TabControl
+    public class DCMButton:Button
     {
-
     }
 }

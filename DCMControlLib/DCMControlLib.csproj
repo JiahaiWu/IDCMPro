@@ -46,11 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGridView\DCMDataGridView.cs" />
-    <Compile Include="DataGridView\DCMDGVButtonCell.cs" />
-    <Compile Include="DataGridView\DCMDGVCell.cs" />
-    <Compile Include="DataGridView\DCMDGVTextCell.cs" />
-    <Compile Include="DataGridView\DCMDGVColumn.cs" />
+    <Compile Include="BaseItem\DCMButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DCMDGV\DCMButtonEditControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DCMDGV\DCMDataGridView.cs" />
+    <Compile Include="DCMDGV\DCMButtonDGVCell.cs" />
+    <Compile Include="DCMDGV\DCMTextDGVCell.cs" />
+    <Compile Include="DCMDGV\DCMTextDGVColumn.cs" />
+    <Compile Include="DCMDGV\DCMTextEditControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BaseItem\DCMTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DCMDGV\DCMButtonDGVColumn.cs" />
     <Compile Include="Form11.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -106,6 +118,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
