@@ -11,6 +11,21 @@
     <AssemblyName>GCMControlLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +49,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,15 +60,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CaptionColorChooser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CaptionColorChooser.Designer.cs">
+      <DependentUpon>CaptionColorChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CaptionColorChooserEditor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ContextMenuShownEventArgs.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GCMTabControl.cs" />
+    <Compile Include="ICaptionRandomizer.cs" />
+    <Compile Include="GCMTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GCMTabControlActionList.cs" />
+    <Compile Include="GCMTabControlDesigner.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SelectedIndexChangingEventArgs.cs" />
+    <Compile Include="TabPageEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Win32\Enum.cs" />
+    <Compile Include="Win32\User32.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,6 +107,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -71,6 +120,166 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CaptionClose.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete_12x12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DownArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DropDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InsertTabControlHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leftArrow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leftArrowDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\leftArrowHover.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftDownBlackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftDownKRBBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftDownOfficeBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftDownOfficeOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftDownOfficeSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftHoverBlackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftHoverKRBBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftHoverOfficeBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftHoverOfficeOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftHoverOfficeSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftNormalBlackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftNormalKRBBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftNormalOfficeBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftNormalOfficeOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LeftNormalOfficeSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PushpinHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightArrow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightArrowDown.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightArrowHover.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightDownBlackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightDownKRBBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightDownOfficeBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightDownOfficeOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightDownOfficeSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightHoverBlackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightHoverKRBBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightHoverOfficeBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightHoverOfficeOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightHoverOfficeSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightNormalBlackGlass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightNormalKRBBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightNormalOfficeBlue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightNormalOfficeOlive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RightNormalOfficeSilver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TabClose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TabHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TabPressed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UpArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
