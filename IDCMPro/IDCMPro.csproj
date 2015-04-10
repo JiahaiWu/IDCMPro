@@ -7,7 +7,7 @@
     <ProjectGuid>{5489CE26-5F18-4BE0-A299-9EC8EDC3703C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IDCMPro</RootNamespace>
+    <RootNamespace>IDCM</RootNamespace>
     <AssemblyName>IDCMPro</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -80,6 +80,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DCMControlLib\DCMControlLib.csproj">
+      <Project>{f280276f-8d7c-41ad-b62f-6e9f34693222}</Project>
+      <Name>DCMControlLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GCMControlLib\GCMControlLib.csproj">
       <Project>{be798f7a-2d34-4fcc-b5fd-b071d8b75490}</Project>
       <Name>GCMControlLib</Name>

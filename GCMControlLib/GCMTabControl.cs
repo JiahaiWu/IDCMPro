@@ -10,9 +10,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.ComponentModel.Design;
-using GCMControlLib.Win32;
+using IDCM.GCMControlLib.Win32;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     [Designer(typeof(GCMTabControlDesigner))]
     public partial class GCMTabControl : TabControl

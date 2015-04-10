@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Collections;
 using System.Windows.Forms;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     public class SelectedIndexChangingEventArgs : EventArgs, IDisposable
     {

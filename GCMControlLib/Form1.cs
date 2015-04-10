@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     public partial class Form1 : Form
     {

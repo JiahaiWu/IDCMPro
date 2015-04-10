@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     partial class GCMTabControl
     {

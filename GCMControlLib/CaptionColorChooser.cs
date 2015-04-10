@@ -8,7 +8,7 @@ using System.Drawing.Drawing2D;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     partial class GCMTabControl
     {

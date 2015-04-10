@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace GCMControlLib.Win32
+namespace IDCM.GCMControlLib.Win32
 {
     internal partial class User32
     {

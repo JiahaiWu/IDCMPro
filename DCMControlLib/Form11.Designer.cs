@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IDCM {
+namespace IDCM.DCMControlLib {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace IDCM {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IDCM.Form1", typeof(Form1).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("IDCM.DCMControlLib.Form1", typeof(Form1).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

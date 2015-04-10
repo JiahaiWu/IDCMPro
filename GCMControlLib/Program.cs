@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     static class Program
     {

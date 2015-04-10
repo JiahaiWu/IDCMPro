@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GCMControlLib.Win32
+namespace IDCM.GCMControlLib.Win32
 {
     partial class User32
     {

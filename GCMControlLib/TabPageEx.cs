@@ -10,9 +10,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.ComponentModel;
 using System.ComponentModel.Design;
-using GCMControlLib.Win32;
+using IDCM.GCMControlLib.Win32;
 
-namespace GCMControlLib
+namespace IDCM.GCMControlLib
 {
     [Designer(typeof(System.Windows.Forms.Design.ScrollableControlDesigner))]
     public class TabPageEx : TabPage

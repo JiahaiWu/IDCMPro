@@ -1,4 +1,4 @@
-﻿namespace GCMControlLib
+﻿namespace IDCM.GCMControlLib
 {
     partial class Form1
     {
