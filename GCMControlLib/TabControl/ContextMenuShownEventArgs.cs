@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Collections;
 using System.Windows.Forms;
 
-namespace IDCM.GCMControlLib
+namespace GCMControlLib
 {
     public class ContextMenuShownEventArgs : EventArgs, IDisposable
     {

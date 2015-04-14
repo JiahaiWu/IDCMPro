@@ -7,7 +7,7 @@
     <ProjectGuid>{F280276F-8D7C-41AD-B62F-6E9F34693222}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IDCM.DCMControlLib</RootNamespace>
+    <RootNamespace>DCM</RootNamespace>
     <AssemblyName>DCMControlLib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -55,7 +55,9 @@
     <Compile Include="DCMDGV\DCMButtonEditControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DCMDGV\DCMDataGridView.cs" />
+    <Compile Include="DCMDGV\DCMDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DCMDGV\DCMButtonDGVCell.cs" />
     <Compile Include="DCMDGV\DCMTextDGVCell.cs" />
     <Compile Include="DCMDGV\DCMTextDGVColumn.cs" />

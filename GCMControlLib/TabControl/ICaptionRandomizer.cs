@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IDCM.GCMControlLib
+namespace GCMControlLib
 {
     public interface ICaptionRandomizer : IDisposable
     {

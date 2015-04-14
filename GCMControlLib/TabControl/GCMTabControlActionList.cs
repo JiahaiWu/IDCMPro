@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using IDCM.GCMControlLib.Win32;
 
-namespace IDCM.GCMControlLib
+namespace GCMControlLib
 {
     public class GCMTabControlActionList : DesignerActionList
     {

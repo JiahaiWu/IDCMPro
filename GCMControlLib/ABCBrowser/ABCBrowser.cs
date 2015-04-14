@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DCM.BaseItem
+namespace GCMControlLib
 {
-    public class DCMButton:Button
+    public class ABCBrowser:WebBrowser
     {
     }
 }

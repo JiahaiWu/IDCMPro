@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace IDCM.DCMDGV
+namespace DCM.DCMDGV
 {
     public class DCMButtonEditControl:Button,IDataGridViewEditingControl
     {
