@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IDCM</RootNamespace>
     <AssemblyName>IDCMPro</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,6 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TmpTest\QuickTest_Data.cs" />
     <EmbeddedResource Include="GCMProView.resx">
       <DependentUpon>GCMProView.cs</DependentUpon>
     </EmbeddedResource>
@@ -96,6 +99,10 @@
     <ProjectReference Include="..\GCMControlLib\GCMControlLib.csproj">
       <Project>{be798f7a-2d34-4fcc-b5fd-b071d8b75490}</Project>
       <Name>GCMControlLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IDCM.Data\IDCM.Data.csproj">
+      <Project>{59924c45-9aed-4c73-a87a-f6784bf54cad}</Project>
+      <Name>IDCM.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

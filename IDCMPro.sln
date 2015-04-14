@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5C6A6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCMControlLib", "GCMControlLib\GCMControlLib.csproj", "{BE798F7A-2D34-4FCC-B5FD-B071D8B75490}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDCM.Base", "IDCM.Base\IDCM.Base.csproj", "{1B2DD284-7D56-4AC8-BE7C-FF34A807D55E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDCM.Data", "IDCM.Data\IDCM.Data.csproj", "{59924C45-9AED-4C73-A87A-F6784BF54CAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{BE798F7A-2D34-4FCC-B5FD-B071D8B75490}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE798F7A-2D34-4FCC-B5FD-B071D8B75490}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE798F7A-2D34-4FCC-B5FD-B071D8B75490}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B2DD284-7D56-4AC8-BE7C-FF34A807D55E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B2DD284-7D56-4AC8-BE7C-FF34A807D55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B2DD284-7D56-4AC8-BE7C-FF34A807D55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B2DD284-7D56-4AC8-BE7C-FF34A807D55E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59924C45-9AED-4C73-A87A-F6784BF54CAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59924C45-9AED-4C73-A87A-F6784BF54CAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59924C45-9AED-4C73-A87A-F6784BF54CAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59924C45-9AED-4C73-A87A-F6784BF54CAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
