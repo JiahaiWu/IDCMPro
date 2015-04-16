@@ -1,5 +1,5 @@
 # IDCM GCM Pro
-Individual Data Center of Microbial resources (IDCM) For Global Catalogue of Microorganisms (GCM) Data Intergration
+Specific Data Center of Microbial resources (IDCM) For Global Catalogue of Microorganisms (GCM) Data Intergration
 ==========================================================
 Based from
 Individual Data  Center of Microbial resources (IDCM)
