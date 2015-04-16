@@ -11,7 +11,9 @@ Desktop software package for Global Catalogue of Microorganisms (GCM)
 Server-side storage and publishing 
 
 Data sharing
-
+***********************************************************
+Framwork of GCM Pro
+![image](https://github.com/NIC-IMCAS/IDCMPro/tree/GCMPro/Docs/IDCM FrameWork_GCMPro.png)
 ***********************************************************
 Version 0.0.1
 
