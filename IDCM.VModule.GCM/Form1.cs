@@ -7,21 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DCMControlLib.GCM;
-using IDCM.TmpTest;
 
-namespace IDCMPro
+namespace IDCM.VModule.GCM
 {
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void toolStripStatusLabel2_Click(object sender, EventArgs e)
-        {
-            new QuickTest_Data().test();
         }
     }
 }

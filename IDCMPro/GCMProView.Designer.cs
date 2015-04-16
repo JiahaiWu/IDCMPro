@@ -36,17 +36,17 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.gcmTabControl1 = new GCMControlLib.GCMTabControl();
-            this.tabPage_local = new GCMControlLib.TabPageEx();
+            this.gcmTabControl1 = new DCMControlLib.GCM.GCMTabControl();
+            this.tabPage_local = new DCMControlLib.GCM.TabPageEx();
             this.splitContainer_local = new System.Windows.Forms.SplitContainer();
             this.dcmDataGridView1 = new DCM.DCMDataGridView();
             this.StrainNumber = new DCM.DCMDGV.DCMTextDGVColumn();
-            this.tabPage_gcm = new GCMControlLib.TabPageEx();
+            this.tabPage_gcm = new DCMControlLib.GCM.TabPageEx();
             this.splitContainer_gcm = new System.Windows.Forms.SplitContainer();
             this.dcmDataGridView2 = new DCM.DCMDataGridView();
-            this.tabPage_abc = new GCMControlLib.TabPageEx();
+            this.tabPage_abc = new DCMControlLib.GCM.TabPageEx();
             this.splitContainer_abc = new System.Windows.Forms.SplitContainer();
-            this.abcBrowser1 = new GCMControlLib.ABCBrowser();
+            this.abcBrowser1 = new DCMControlLib.GCM.ABCBrowser();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
@@ -133,7 +133,7 @@
             // gcmTabControl1
             // 
             this.gcmTabControl1.Alignment = System.Windows.Forms.TabAlignment.Bottom;
-            this.gcmTabControl1.Alignments = GCMControlLib.GCMTabControl.TabAlignments.Bottom;
+            this.gcmTabControl1.Alignments = DCMControlLib.GCM.GCMTabControl.TabAlignments.Bottom;
             this.gcmTabControl1.AllowDrop = true;
             this.gcmTabControl1.BackgroundHatcher.HatchType = System.Drawing.Drawing2D.HatchStyle.DashedVertical;
             this.gcmTabControl1.Controls.Add(this.tabPage_local);
@@ -155,7 +155,7 @@
             this.gcmTabControl1.TabHOffset = -2;
             this.gcmTabControl1.TabIndex = 0;
             this.gcmTabControl1.TabPageCloseIconColor = System.Drawing.Color.White;
-            this.gcmTabControl1.UpDownStyle = GCMControlLib.GCMTabControl.UpDown32Style.KRBBlue;
+            this.gcmTabControl1.UpDownStyle = DCMControlLib.GCM.GCMTabControl.UpDown32Style.KRBBlue;
             // 
             // tabPage_local
             // 
@@ -348,10 +348,10 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel panel1;
-        private GCMControlLib.GCMTabControl gcmTabControl1;
-        private GCMControlLib.TabPageEx tabPage_local;
-        private GCMControlLib.TabPageEx tabPage_gcm;
-        private GCMControlLib.TabPageEx tabPage_abc;
+        private DCMControlLib.GCM.GCMTabControl gcmTabControl1;
+        private DCMControlLib.GCM.TabPageEx tabPage_local;
+        private DCMControlLib.GCM.TabPageEx tabPage_gcm;
+        private DCMControlLib.GCM.TabPageEx tabPage_abc;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ImageList imageList1;
@@ -361,7 +361,7 @@
         private System.Windows.Forms.SplitContainer splitContainer_gcm;
         private DCM.DCMDataGridView dcmDataGridView2;
         private System.Windows.Forms.SplitContainer splitContainer_abc;
-        private GCMControlLib.ABCBrowser abcBrowser1;
+        private DCMControlLib.GCM.ABCBrowser abcBrowser1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;

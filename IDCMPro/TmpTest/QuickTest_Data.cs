@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using IDCM.Data;
+using IDCM.IDB;
 using System.Threading;
-using IDCM.Data.DAM;
+using IDCM.IDB.DAM;
 
 namespace IDCM.TmpTest
 {
