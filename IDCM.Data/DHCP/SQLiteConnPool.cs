@@ -10,7 +10,7 @@ using System.Threading;
 using System.Collections.Concurrent;
 using IDCM.Base;
 
-namespace IDCM.Data.DHCP
+namespace IDCM.IDB.DHCP
 {
     /// <summary>
     /// 单源数据库连接选择器。

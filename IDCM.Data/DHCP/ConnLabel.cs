@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 
-namespace IDCM.Data.DHCP
+namespace IDCM.IDB.DHCP
 {
     public class ConnLabel
     {

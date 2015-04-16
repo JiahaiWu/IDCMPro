@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using IDCM.Base.Utils;
 using System.IO;
 
-namespace IDCM.Data
+namespace IDCM.IDB
 {
     internal class DBSpaceKeeper
     {

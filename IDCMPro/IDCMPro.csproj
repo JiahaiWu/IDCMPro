@@ -100,9 +100,9 @@
       <Project>{be798f7a-2d34-4fcc-b5fd-b071d8b75490}</Project>
       <Name>GCMControlLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IDCM.Data\IDCM.Data.csproj">
+    <ProjectReference Include="..\IDCM.Data\IDCM.IDB.csproj">
       <Project>{59924c45-9aed-4c73-a87a-f6784bf54cad}</Project>
-      <Name>IDCM.Data</Name>
+      <Name>IDCM.IDB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

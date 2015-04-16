@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using IDCM.Base;
 
-namespace IDCM.Data
+namespace IDCM.IDB
 {
     [Serializable]
     public class IDCMDataException : IDCMException, ISerializable

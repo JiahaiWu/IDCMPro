@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDCM.Data.DAM
+namespace IDCM.IDB.DAM
 {
     /// <summary>
     /// 用户标记当前数据库记录版本标识类定义

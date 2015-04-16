@@ -7,7 +7,7 @@
     <ProjectGuid>{59924C45-9AED-4C73-A87A-F6784BF54CAD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IDCM.Data</RootNamespace>
+    <RootNamespace>IDCM.IDB</RootNamespace>
     <AssemblyName>IDCM.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -75,7 +75,7 @@
     <Compile Include="DBSpaceKeeper.cs" />
     <Compile Include="DAM\BaseInfoNote.cs" />
     <Compile Include="DAM\DAMBase.cs" />
-    <Compile Include="DAM\IDBStatus.cs" />
+    <Compile Include="IDBStatus.cs" />
     <Compile Include="DHCP\ConnLabel.cs" />
     <Compile Include="DHCP\SQLiteConnPicker.cs" />
     <Compile Include="DHCP\SQLiteConnPool.cs" />

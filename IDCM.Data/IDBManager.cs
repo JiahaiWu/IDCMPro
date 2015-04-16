@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDCM.Data.DAM;
-using IDCM.Data.DHCP;
+using IDCM.IDB.DAM;
+using IDCM.IDB.DHCP;
 using IDCM.Base;
 using System.Data.SQLite;
 using Dapper;
 
-namespace IDCM.Data
+namespace IDCM.IDB
 {
     public class IDBManager
     {

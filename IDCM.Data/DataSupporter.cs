@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDCM.Data.DAM;
+using IDCM.IDB.DAM;
+using System.Data;
+using System.Data.SQLite;
 
-namespace IDCM.Data
+namespace IDCM.IDB
 {
     public class DataSupporter
     {
+
         /// <summary>
         /// 获取唯一序列生成ID值
         /// 1.可重入，可并入。
@@ -25,6 +28,43 @@ namespace IDCM.Data
             return BaseInfoNoteDAM.nextSeqID(wsm.getConnection());
         }
 
+        /// <summary>
+        /// 执行SQL查询命令，返回查询结果
+        /// 说明：
+        /// 1.可重入，可并入。
+        /// </summary>
+        /// <param name="wsm">工作空间管理器对象实例</param>
+        /// <param name="sqlExpression"></param>
+        /// <returns></returns>
+        public static DataTable SQLQuery(IDBManager wsm, string sqlExpression)
+        {
+            if (wsm == null || !IDBStatus.InWorking.Equals(wsm.Status))
+                throw new IDCMDataException("Ivalid params and status for get next sequence id!");
+            if (sqlExpression == null || sqlExpression.Length == 0)
+                throw new IDCMDataException("Ivalid sqlExpression");
+            DataSet ds = new DataSet();
+            using (DHCP.SQLiteConnPicker picker = new DHCP.SQLiteConnPicker(wsm.getConnection()))
+            {
+                SQLiteConnection conn = picker.getConnection();
+                SQLiteCommand cmd = new SQLiteCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = sqlExpression;
+                cmd.CommandType = CommandType.Text;
+                try
+                {
+#if DEBUG
+                    log.Debug("DataTableSQLQuery Info: @CommandText=" + cmd.CommandText);
+#endif
+                    SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                    sda.Fill(ds);
+                }
+                catch (Exception ex)
+                {
+                    throw new IDCMDataException("DataTableSQLQuery Error.", ex);
+                }
+            }
+            return ds.Tables.Count > 0 ? ds.Tables[0] : null;
+        }
         /// <summary>
         /// 执行SQL查询命令，返回查询结果集
         /// 说明：
@@ -111,5 +151,22 @@ namespace IDCM.Data
                 return res[0];
             return -2;
         }
+        /// <summary>
+        /// 对批量执行SQL的返回结果值的全部完成标识判断
+        /// </summary>
+        /// <param name="exeResults"></param>
+        /// <returns></returns>
+        public static bool checkExecuteOk(params int[] exeResults)
+        {
+            if (exeResults == null || exeResults.Length == 0)
+                return false;
+            foreach(int res in exeResults)
+            {
+                if (res < 0)
+                    return false;
+            }
+            return true;
+        }
+        private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
     }
 }

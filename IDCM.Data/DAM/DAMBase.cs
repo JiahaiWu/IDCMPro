@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Dapper;
 using System.Data;
 using System.Threading;
-using IDCM.Data.DHCP;
+using IDCM.IDB.DHCP;
 using System.Data.SQLite;
 using System.Data.SQLite.Generic;
 using IDCM.Base;
 using System.IO;
 
-namespace IDCM.Data.DAM
+namespace IDCM.IDB.DAM
 {
     internal class DAMBase
     {
@@ -168,7 +168,6 @@ namespace IDCM.Data.DAM
         protected static string getBasicTableCmds()
         {
             StringBuilder strbuilder = new StringBuilder();
-            //创建目录库数据表定义
             string cmd = null;
             BaseInfoNote dbvn = new BaseInfoNote();
             //创建基础自增长序列及版本记录数据表

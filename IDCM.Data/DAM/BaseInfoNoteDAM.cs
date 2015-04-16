@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
-using IDCM.Data.DHCP;
+using IDCM.IDB.DHCP;
 
-namespace IDCM.Data.DAM
+namespace IDCM.IDB.DAM
 {
     class BaseInfoNoteDAM
     {

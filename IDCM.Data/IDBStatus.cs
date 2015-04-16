@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDCM.Data.DAM
+namespace IDCM.IDB
 {
     public enum IDBStatus
     {
