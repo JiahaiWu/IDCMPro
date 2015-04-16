@@ -28,7 +28,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCMControlLib.GCM", "DCMCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDCM.VService.GCM", "IDCM.VService.GCM\IDCM.VService.GCM.csproj", "{F13228CD-8C64-4B3C-B222-3A26D09B2033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDCM.Plugins", "IDCM.Plugins\IDCM.Plugins.csproj", "{A8D68F01-A754-4A30-B62D-539688C8578C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDCM.JobDriver", "IDCM.JobDriver\IDCM.JobDriver.csproj", "{026ED914-C635-477D-8118-642A9FE42C65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9D82ACC8-26C3-4DDE-A9DD-02E68B82D380}"
+	ProjectSection(SolutionItems) = preProject
+		Docs\IDCM FrameWork_GCMPro.png = Docs\IDCM FrameWork_GCMPro.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,10 +81,10 @@ Global
 		{F13228CD-8C64-4B3C-B222-3A26D09B2033}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F13228CD-8C64-4B3C-B222-3A26D09B2033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F13228CD-8C64-4B3C-B222-3A26D09B2033}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A8D68F01-A754-4A30-B62D-539688C8578C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A8D68F01-A754-4A30-B62D-539688C8578C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A8D68F01-A754-4A30-B62D-539688C8578C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A8D68F01-A754-4A30-B62D-539688C8578C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{026ED914-C635-477D-8118-642A9FE42C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{026ED914-C635-477D-8118-642A9FE42C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{026ED914-C635-477D-8118-642A9FE42C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{026ED914-C635-477D-8118-642A9FE42C65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
