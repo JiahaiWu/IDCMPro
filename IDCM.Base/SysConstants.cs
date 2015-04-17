@@ -8,6 +8,7 @@ namespace IDCM.Base
 {
     public class SysConstants
     {
+        #region const parameters
         public const string SOCK_SATUTS = "status";
         public const string SOCK_LUID = "luid";
         public const string SOCK_LICENSE = "license";
@@ -15,8 +16,13 @@ namespace IDCM.Base
         public const string DB_SUFFIX = ".mrc";
         public const int Max_Attr_Count = 1000;
         public const int EXPORT_PAGING_COUNT = 1000;
+        /// <summary>
+        /// GCM上传XML格式模板文档
+        /// </summary>
+        public const string GCMUploadTemplate = "GCMUploadTemplate";
+        #endregion
 
-        #region AppSettings
+        #region Keys of AppSettings
         public const string LastWorkSpace = "LWS";
         public const string LWSAsDefault = "LWS_As_Default";
         public const string LUID = "LUID";
@@ -54,18 +60,10 @@ namespace IDCM.Base
         /// </summary>
         public const string XMLImportUri = "XMLImportUri";
         #endregion
-        /// <summary>
-        /// GCM上传XML格式模板文档
-        /// </summary>
-        public const string GCMUploadTemplate = "GCMUploadTemplate";
-        /// <summary>
-        /// 最长等待毫秒数
-        /// </summary>
-        public static int MAX_DB_REQUEST_TIME_OUT = 10000;
-        /// <summary>
-        /// 最大数据库连接池连接数
-        /// </summary>
-        public static int MAX_DB_REQUEST_POOL_NUM = 2;
+
+
+        #region default config setting for sharing 
+
         /// <summary>
         /// 探索XML节点稳定性，游标，代表探索的当前位置，初始是0，代表从0开始
         /// </summary>
@@ -86,5 +84,6 @@ namespace IDCM.Base
         /// 内部默认的字符编码
         /// </summary>
         public static Encoding defaultEncoding = new UTF8Encoding(true);
+        #endregion
     }
 }

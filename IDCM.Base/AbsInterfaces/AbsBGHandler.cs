@@ -7,20 +7,20 @@ using System.ComponentModel;
 
 namespace IDCM.Base.AbsInterfaces
 {
-    public abstract class AbsBGHandler
+    public abstract class AbsBGHandler:IBGHandler
     {
         /// <summary>
         /// 后台任务执行方法的主体部分，异步执行代码段！
         /// </summary>
         /// <param name="worker"></param>
         /// <param name="args"></param>
-        public abstract Object doWork(BackgroundWorker worker, bool cancel, List<Object> args);
+        public abstract Object doWork(bool cancel, List<Object> args);
         /// <summary>
         /// 后台任务执行结束，回调代码段
         /// </summary>
         /// <param name="worker"></param>
         /// <param name="args"></param>
-        public virtual void complete(BackgroundWorker worker, bool canceled, Exception error, List<Object> args)
+        public virtual void complete(bool canceled, Exception error, List<Object> args)
         {
             if (canceled)
                 return;
@@ -38,7 +38,7 @@ namespace IDCM.Base.AbsInterfaces
         /// <param name="worker"></param>
         /// <param name="progressPercentage"></param>
         /// <param name="args"></param>
-        public virtual void progressChanged(BackgroundWorker worker, int progressPercentage, List<Object> args)
+        public virtual void progressChanged(int progressPercentage, List<Object> args)
         {
         }
 

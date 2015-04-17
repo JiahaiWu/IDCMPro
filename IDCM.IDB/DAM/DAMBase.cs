@@ -39,7 +39,7 @@ namespace IDCM.IDB.DAM
                 sqlCSB.SyncMode = SynchronizationModes.Off;//启用异步存储模式
                 sqlCSB.Pooling = true;
                 sqlCSB.AsParallel();
-                sqlCSB.DefaultTimeout = SysConstants.MAX_DB_REQUEST_TIME_OUT;
+                sqlCSB.DefaultTimeout = SQLiteConnPool.MAX_DB_REQUEST_TIME_OUT;
                 ////////////////////////////////////////////////////////////////
                 //sqlCSB.ToFullPath = true;
                 //@note 备选设置

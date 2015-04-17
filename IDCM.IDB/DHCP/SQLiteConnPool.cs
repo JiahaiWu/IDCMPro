@@ -23,6 +23,15 @@ namespace IDCM.IDB.DHCP
     /// @author JiahaiWu 2014-11-06
     internal class SQLiteConnPool
     {
+        /// <summary>
+        /// 最长等待毫秒数
+        /// </summary>
+        public static int MAX_DB_REQUEST_TIME_OUT = 10000;
+        /// <summary>
+        /// 最大数据库连接池连接数
+        /// </summary>
+        public static int MAX_DB_REQUEST_POOL_NUM = 2;
+
         public SQLiteConnPool(string connString, int poolSize = 1)
         {
 #if DEBUG
@@ -47,7 +56,7 @@ namespace IDCM.IDB.DHCP
             {
                 for (int i = 0; i < poolSize; i++)
                 {
-                    poolSemaphore.WaitOne(SysConstants.MAX_DB_REQUEST_TIME_OUT);
+                    poolSemaphore.WaitOne(MAX_DB_REQUEST_TIME_OUT);
                 }
                 if (sconnHodlers != null)
                 {
@@ -90,7 +99,7 @@ namespace IDCM.IDB.DHCP
         /// <returns>SQLiteConnection (null able)</returns>
         public SQLiteConnHolder getConnection()
         {
-            if (poolSemaphore.WaitOne(SysConstants.MAX_DB_REQUEST_TIME_OUT))
+            if (poolSemaphore.WaitOne(MAX_DB_REQUEST_TIME_OUT))
             {
                 SQLiteConnHolder holder = null;
                 while (holder==null && !idleHodlers.IsEmpty)
@@ -100,7 +109,7 @@ namespace IDCM.IDB.DHCP
                     bool res = idleHodlers.TryRemove(holder, out lts);
                     if (res)
                     {
-                        if (lts < SysConstants.MAX_DB_REQUEST_TIME_OUT)
+                        if (lts < MAX_DB_REQUEST_TIME_OUT)
                         {
                             if (!sconnHodlers.TryAdd(holder, lts))
                                 holder = null;

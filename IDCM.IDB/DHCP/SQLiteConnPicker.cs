@@ -38,7 +38,7 @@ namespace IDCM.IDB.DHCP
             GConnectPool.TryGetValue(connectionStr, out poolHolder);//查看池中有没有指定的数据库连接池实例
             if (poolHolder == null)
             {
-                poolHolder = new SQLiteConnPool(connectionStr, SysConstants.MAX_DB_REQUEST_POOL_NUM);//创建一个数据库连接池
+                poolHolder = new SQLiteConnPool(connectionStr, SQLiteConnPool.MAX_DB_REQUEST_POOL_NUM);//创建一个数据库连接池
                 bool SQLiteConnAdded = GConnectPool.TryAdd(connectionStr, poolHolder);//把新建的链接str与链接存入池
                 if (!SQLiteConnAdded)
                 {
