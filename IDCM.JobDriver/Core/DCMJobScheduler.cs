@@ -4,61 +4,97 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Threading;
+using IDCM.Base;
 
 namespace IDCM.JobDriver.Core
 {
     internal class DCMJobScheduler
     {
-        public static bool note(DCMJob job)
+        public DCMJobScheduler(int maxParallelSize=2,double interval=5)
+        {
+            this.MaxParallelSize = maxParallelSize;
+            poolSemaphore = new Semaphore(MaxParallelSize,MaxParallelSize);
+            jobPoller = new System.Timers.Timer(interval);
+            jobPoller.Elapsed += OnPollerElaspsed;
+            priorityQueue = new ConcurrentQueue<DCMJob>();
+            readyQueue = new ConcurrentQueue<DCMJob>();
+            waitIdleQueue = new ConcurrentQueue<DCMJob>();
+        }
+
+
+        public bool note(DCMJob job)
         {
             jobPoller.Enabled = true;
             return true;
         }
 
-        public static void OnPollerElaspsed(object sender,EventArgs args)
+        protected void OnPollerElaspsed(object sender,EventArgs args)
         {
             DCMJob tjob = null;
             while (priorityQueue.TryDequeue(out tjob))
             {
-                BGWorkerInvoker.pushHandler(tjob.BGHandler);
+                pushHandler(tjob);
             }
             while (readyQueue.TryDequeue(out tjob))
             {
-                BGWorkerInvoker.pushHandler(tjob.BGHandler);
+                pushHandler(tjob);
             }
-            if(waitIdleQueue.TryDequeue(out tjob))
+            while(waitIdleQueue.TryDequeue(out tjob))
             {
-                BGWorkerInvoker.pushHandler(tjob.BGHandler);
+                pushHandler(tjob);
             }
             jobPoller.Enabled = false;
         }
-        public static void initScheduler()
+
+        protected void pushHandler(DCMJob job)
         {
-            jobPoller = new System.Timers.Timer(5);
-            jobPoller.Elapsed+=OnPollerElaspsed;
-            priorityQueue = new ConcurrentQueue<DCMJob>();
-            readyQueue = new ConcurrentQueue<DCMJob>();
-            waitIdleQueue = new ConcurrentQueue<DCMJob>();
+            if (poolSemaphore.WaitOne(MAX_Job_REQUEST_TIME_OUT))
+            {
+                BGWorkerInvoker.pushHandler(job.BGHandler, OnJobRelease);
+            }
+            else
+            {
+                //信号量等待超时！！
+                throw new IDCMServException("Waiting Time out for DCMJobScheduler push DCMJob Handler, please check relative program coding!");
+            }
+        }
+        protected void OnJobRelease(bool Canceled,Exception ex)
+        {
+            poolSemaphore.Release();
+            return;
         }
         /// <summary>
         /// 轮询器
         /// </summary>
-        private static System.Timers.Timer jobPoller = null;
+        private System.Timers.Timer jobPoller = null;
         /// <summary>
         /// 线程调度最大并行数
         /// </summary>
-        private static int MaxParallelSize = 2;
+        private int MaxParallelSize = 2;
         /// <summary>
         /// 快速优先队列
         /// </summary>
-        private static ConcurrentQueue<DCMJob> priorityQueue = null;
+        private ConcurrentQueue<DCMJob> priorityQueue = null;
         /// <summary>
         /// 候选队列
         /// </summary>
-        private static ConcurrentQueue<DCMJob> readyQueue = null;
+        private ConcurrentQueue<DCMJob> readyQueue = null;
         /// <summary>
         /// 忙时等待队列
         /// </summary>
-        private static ConcurrentQueue<DCMJob> waitIdleQueue =null;
+        private ConcurrentQueue<DCMJob> waitIdleQueue =null;
+        /// <summary>
+        /// 同步信号量
+        /// </summary>
+        protected volatile Semaphore poolSemaphore;
+        /// <summary>
+        /// 线程池数量
+        /// </summary>
+        private readonly int poolSize;
+        /// <summary>
+        /// 最长等待毫秒数
+        /// </summary>
+        public static int MAX_Job_REQUEST_TIME_OUT = 3600000;  //one hour for waiting
     }
 }

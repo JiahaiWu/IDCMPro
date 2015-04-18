@@ -84,6 +84,10 @@ namespace IDCM.Base
         /// 内部默认的字符编码
         /// </summary>
         public static Encoding defaultEncoding = new UTF8Encoding(true);
+        /// <summary>
+        /// 默认的数据库连接池连接数
+        /// </summary>
+        public const int Default_DB_REQUEST_POOL_NUM = 2;
         #endregion
     }
 }

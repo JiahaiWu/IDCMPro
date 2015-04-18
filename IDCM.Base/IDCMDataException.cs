@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-using IDCM.Base;
 
-namespace IDCM.IDB
+namespace IDCM.Base
 {
     [Serializable]
     public class IDCMDataException : IDCMException, ISerializable

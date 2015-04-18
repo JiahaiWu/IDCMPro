@@ -17,21 +17,19 @@ namespace IDCM.JobDriver.Core
         /// 加载后台执行任务袋，并立即提交异步执行操作
         /// </summary>
         /// <param name="handler"></param>
-        public static void pushHandler(AbsBGHandler handler, Object args = null, Queue<AbsBGHandler> cascadeHandlers = null)
+        public static void pushHandler(AbsBGHandler handler,OnJobFinished onfinish, Object args = null)
         {
             if (handler == null)
                 return;
-            BGHandlerProxy proxy = new BGHandlerProxy(handler, cascadeHandlers);
+            BGHandlerProxy proxy = new BGHandlerProxy(handler);
             BackgroundWorker bgworker = new BackgroundWorker();
             bgworker.WorkerReportsProgress = true;
             bgworker.WorkerSupportsCancellation = true;
-            //bgworker.DoWork += proxy.worker_DoWork;
-            //bgworker.ProgressChanged += proxy.worker_ProgressChanged;
-            //bgworker.RunWorkerCompleted += proxy.worker_RunWorkerCompleted;
-            bgworker.DoWork += new DoWorkEventHandler(proxy.worker_DoWork);
-            bgworker.ProgressChanged += new ProgressChangedEventHandler(proxy.worker_ProgressChanged);
-            bgworker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(proxy.worker_RunWorkerCompleted);
-            bgworker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(proxy.worker_cascadeProcess);
+            bgworker.DoWork += proxy.worker_DoWork;
+            bgworker.ProgressChanged += proxy.worker_ProgressChanged;
+            bgworker.RunWorkerCompleted += proxy.worker_RunWorkerCompleted;
+            bgworker.RunWorkerCompleted += proxy.worker_cascadeProcess;
+            bgworker.RunWorkerCompleted += delegate(object tsender, RunWorkerCompletedEventArgs te) { workCompleted(tsender, te, onfinish); }; ;
             RunningHandlerNoter.note(bgworker, proxy);
             if (args == null)
                 bgworker.RunWorkerAsync();
@@ -72,5 +70,17 @@ namespace IDCM.JobDriver.Core
                 }
             }
         }
+        /// <summary>
+        /// 后台任务执行结束后的串联执行任务队列的代理实现代码段
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static void workCompleted(object sender, RunWorkerCompletedEventArgs e, OnJobFinished onfinish)
+        {
+            if (onfinish != null)
+                onfinish(e.Cancelled, e.Error);
+        }
     }
+    //异步消息事件委托形式化声明
+    internal delegate void OnJobFinished(bool Canceled = false, Exception error = null);
 }

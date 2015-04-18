@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using IDCM.IDB;
 using IDCM.DynamicDB.ComPO;
+using IDCM.Base;
 
 namespace IDCM.DynamicDB.DAM
 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using IDCM.IDB.DAM;
 using System.Data;
 using System.Data.SQLite;
+using IDCM.Base;
 
 namespace IDCM.IDB
 {

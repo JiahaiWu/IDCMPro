@@ -23,16 +23,7 @@ namespace IDCM.IDB.DHCP
     /// @author JiahaiWu 2014-11-06
     internal class SQLiteConnPool
     {
-        /// <summary>
-        /// 最长等待毫秒数
-        /// </summary>
-        public static int MAX_DB_REQUEST_TIME_OUT = 10000;
-        /// <summary>
-        /// 最大数据库连接池连接数
-        /// </summary>
-        public static int MAX_DB_REQUEST_POOL_NUM = 2;
-
-        public SQLiteConnPool(string connString, int poolSize = 1)
+        public SQLiteConnPool(string connString, int poolSize = SysConstants.Default_DB_REQUEST_POOL_NUM)
         {
 #if DEBUG
             System.Diagnostics.Debug.Assert(connString != null);
@@ -179,6 +170,10 @@ namespace IDCM.IDB.DHCP
         protected readonly string connString;
         protected volatile ConcurrentDictionary<SQLiteConnHolder, long> sconnHodlers;
         protected volatile ConcurrentDictionary<SQLiteConnHolder, long> idleHodlers;
+        /// <summary>
+        /// 最长等待毫秒数
+        /// </summary>
+        public static int MAX_DB_REQUEST_TIME_OUT = 10000;
 
         #region SQLiteConnHolder
         /// <summary>

@@ -76,7 +76,6 @@
     <Compile Include="DHCP\SQLiteConnPool.cs" />
     <Compile Include="IDBManager.cs" />
     <Compile Include="IDBStatus.cs" />
-    <Compile Include="IDCMDataException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

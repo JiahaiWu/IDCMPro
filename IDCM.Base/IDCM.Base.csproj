@@ -56,6 +56,7 @@
     <Compile Include="ComPO\CustomTDS.cs" />
     <Compile Include="ComPO\AsyncMsgNotice.cs" />
     <Compile Include="ComPO\HandleRunInfo.cs" />
+    <Compile Include="IDCMDataException.cs" />
     <Compile Include="IDCMException.cs" />
     <Compile Include="IDCMServException.cs" />
     <Compile Include="SysConstants.cs" />
