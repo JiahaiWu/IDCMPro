@@ -17,11 +17,11 @@ namespace IDCM.JobDriver.Core
         /// 加载后台执行任务袋，并立即提交异步执行操作
         /// </summary>
         /// <param name="handler"></param>
-        public static void pushHandler(AbsBGHandler handler,OnJobFinished onfinish, Object args = null)
+        public static void pushHandler(DCMJob job,OnJobFinished onfinish)
         {
-            if (handler == null)
+            if (job == null)
                 return;
-            BGHandlerProxy proxy = new BGHandlerProxy(handler);
+            BGHandlerProxy proxy = new BGHandlerProxy(job.BGHandler, job.JobOption);
             BackgroundWorker bgworker = new BackgroundWorker();
             bgworker.WorkerReportsProgress = true;
             bgworker.WorkerSupportsCancellation = true;
@@ -31,10 +31,10 @@ namespace IDCM.JobDriver.Core
             bgworker.RunWorkerCompleted += proxy.worker_cascadeProcess;
             bgworker.RunWorkerCompleted += delegate(object tsender, RunWorkerCompletedEventArgs te) { workCompleted(tsender, te, onfinish); }; ;
             RunningHandlerNoter.note(bgworker, proxy);
-            if (args == null)
+            if (job.Args == null)
                 bgworker.RunWorkerAsync();
             else
-                bgworker.RunWorkerAsync(args);
+                bgworker.RunWorkerAsync(job.Args);
         }
         /// <summary>
         /// 移除特定的BackgroundWorker实例

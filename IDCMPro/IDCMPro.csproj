@@ -47,11 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GCMProView.cs">
+    <Compile Include="GCMPro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GCMProView.Designer.cs">
-      <DependentUpon>GCMProView.cs</DependentUpon>
+    <Compile Include="GCMPro.Designer.cs">
+      <DependentUpon>GCMPro.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -61,8 +61,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="TmpTest\QuickTest_Data.cs" />
-    <EmbeddedResource Include="GCMProView.resx">
-      <DependentUpon>GCMProView.cs</DependentUpon>
+    <EmbeddedResource Include="GCMPro.resx">
+      <DependentUpon>GCMPro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -103,6 +103,10 @@
     <ProjectReference Include="..\IDCM.IDB\IDCM.IDB.csproj">
       <Project>{935a780c-80bf-4195-b1b6-f6b7ef586c51}</Project>
       <Name>IDCM.IDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IDCM.VModule.GCM\IDCM.VModule.GCM.csproj">
+      <Project>{c3639c5d-8a22-4c09-9a42-5a469866b974}</Project>
+      <Name>IDCM.VModule.GCM</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

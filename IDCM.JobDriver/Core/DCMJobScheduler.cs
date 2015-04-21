@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Threading;
 using IDCM.Base;
+using IDCM.Base.AbsInterfaces;
+using IDCM.IDB;
+using IDCM.JobDriver.DAM;
 
 namespace IDCM.JobDriver.Core
 {
     internal class DCMJobScheduler
     {
-        public DCMJobScheduler(int maxParallelSize=2,double interval=5)
+        public DCMJobScheduler(IDBManager dbm,int maxParallelSize = 2, double interval = 5)
         {
             this.MaxParallelSize = maxParallelSize;
             poolSemaphore = new Semaphore(MaxParallelSize,MaxParallelSize);
@@ -20,15 +23,76 @@ namespace IDCM.JobDriver.Core
             priorityQueue = new ConcurrentQueue<DCMJob>();
             readyQueue = new ConcurrentQueue<DCMJob>();
             waitIdleQueue = new ConcurrentQueue<DCMJob>();
+            replaceFilter = new ConcurrentDictionary<int, DCMJob>();
+            this.dbm = dbm;
+            if (dbm != null)
+                LazyWorkNoteDAM.prepareTables(dbm);
         }
 
-
-        public bool note(DCMJob job)
+        public bool note(AbsBGHandler handler, JobHandOption option = null, object[] args = null)
         {
-            jobPoller.Enabled = true;
-            return true;
+            DCMJob job = option==null?new DCMJob(handler):new DCMJob(handler,option.Clone() as JobHandOption);
+            job.appendArgs(args);
+            if (formJobQueue(job))
+            {
+                jobPoller.Enabled = true;
+                return true;
+            }
+            return false;
         }
-
+        /// <summary>
+        /// 查询句柄记录集，验证当前空闲状态
+        /// </summary>
+        /// <returns></returns>
+        public bool checkForIdle()
+        {
+            return priorityQueue.IsEmpty && readyQueue.IsEmpty;
+        }
+        protected bool formJobQueue(DCMJob job)
+        {
+            JobHandOption option = job.JobOption;
+            if (!lastOneIsInterdictMode())
+            {
+                if(option.IsReplaceMode)
+                    addJobReplaceFilter(job);
+                if (option.IsLazyTransaction)
+                {
+                    if (dbm != null && dbm.Status.Equals(IDBStatus.InWorking))
+                    {
+                        LazyWorkNote lwn = ConvertToLazyWorkNote(job);
+                        if(lwn!=null)
+                            LazyWorkNoteDAM.saveWork(dbm, lwn);
+                    }
+                }
+                else
+                {
+                    if (option.IsPriorityMode)
+                    {
+                        priorityQueue.Enqueue(job);
+                    }
+                    else
+                    {
+                        readyQueue.Enqueue(job);
+                    }
+                }
+            }
+            return false;
+        }
+        private void addJobReplaceFilter(DCMJob job)
+        {
+            replaceFilter.AddOrUpdate(job.JID, job, (key, oldVlaue) => oldVlaue =job);
+        }
+        private LazyWorkNote ConvertToLazyWorkNote(DCMJob job)
+        {
+            //unimplemented!
+            return null;
+        }
+        private bool lastOneIsInterdictMode()
+        {
+            if (!waitIdleQueue.IsEmpty && waitIdleQueue.Last().JobOption.IsInterdictMode)
+                return true;
+            return false;
+        }
         protected void OnPollerElaspsed(object sender,EventArgs args)
         {
             DCMJob tjob = null;
@@ -49,9 +113,19 @@ namespace IDCM.JobDriver.Core
 
         protected void pushHandler(DCMJob job)
         {
+            if (job == null || job.TimeOut)
+                return;
+            DCMJob rejob = null;
+            replaceFilter.TryGetValue(job.JID, out rejob);
+            if (rejob != null)
+            {
+                if (rejob != job)
+                    return;
+                else replaceFilter.TryRemove(job.JID,out rejob);
+            }
             if (poolSemaphore.WaitOne(MAX_Job_REQUEST_TIME_OUT))
             {
-                BGWorkerInvoker.pushHandler(job.BGHandler, OnJobRelease);
+                BGWorkerInvoker.pushHandler(job, OnJobRelease);
             }
             else
             {
@@ -85,13 +159,14 @@ namespace IDCM.JobDriver.Core
         /// </summary>
         private ConcurrentQueue<DCMJob> waitIdleQueue =null;
         /// <summary>
+        /// 用于后者替换式的任务标记集合
+        /// </summary>
+        private ConcurrentDictionary<int, DCMJob> replaceFilter = null;
+        private IDBManager dbm;
+        /// <summary>
         /// 同步信号量
         /// </summary>
         protected volatile Semaphore poolSemaphore;
-        /// <summary>
-        /// 线程池数量
-        /// </summary>
-        private readonly int poolSize;
         /// <summary>
         /// 最长等待毫秒数
         /// </summary>

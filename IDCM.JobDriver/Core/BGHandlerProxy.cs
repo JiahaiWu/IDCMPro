@@ -18,10 +18,10 @@ namespace IDCM.JobDriver.Core
         /// 构造方法
         /// </summary>
         /// <param name="handler"></param>
-        public BGHandlerProxy(AbsBGHandler _handler, Queue<AbsBGHandler> cascadeHandlers = null)
+        public BGHandlerProxy(AbsBGHandler _handler,JobHandOption option=null)
         {
             this.handler = _handler;
-            this.cascadeHandlers = cascadeHandlers;
+            this.option = option;
             doWorkTime = DateTime.Now;
         }
         /// <summary>
@@ -75,32 +75,20 @@ namespace IDCM.JobDriver.Core
         {
             if (e.Cancelled || e.Error != null)
                 return;
-            //插队串联部分
+            //插队串联部分任务池
             if (handler.cascadeHandlers() != null)
             {
-                Queue<AbsBGHandler> nextHandlers = this.cascadeHandlers;
-                if (nextHandlers == null)
-                    this.cascadeHandlers = handler.cascadeHandlers();
-                if (nextHandlers != null)
+                foreach (AbsBGHandler hand in handler.cascadeHandlers())
                 {
-                    foreach (AbsBGHandler hand in nextHandlers)
+                    List<Object> args = new List<Object>();
+                    if (e.Result is Object[])
                     {
-                        cascadeHandlers.Enqueue(hand);
+                        args.AddRange((Object[])e.Result);
                     }
+                    else
+                        args.Add(e.Result);
+                    JobManager.note(hand, option, args.ToArray());
                 }
-            }
-            //队头出列，提交执行任务池
-            if (this.cascadeHandlers != null && this.cascadeHandlers.Count > 0)
-            {
-                AbsBGHandler nextHandler = cascadeHandlers.Dequeue();
-                List<Object> args = new List<Object>();
-                if (e.Result is Object[])
-                {
-                    args.AddRange((Object[])e.Result);
-                }
-                else
-                    args.Add(e.Result);
-                BGWorkerInvoker.pushHandler(nextHandler, args, cascadeHandlers);
             }
         }
         /// <summary>
@@ -153,10 +141,7 @@ namespace IDCM.JobDriver.Core
         /// 任务代理包装的元处理器实例对象
         /// </summary>
         private AbsBGHandler handler;
-        /// <summary>
-        /// 等待执行的串联执行任务队列
-        /// </summary>
-        private Queue<AbsBGHandler> cascadeHandlers = null;
+        private JobHandOption option = null;
         /// <summary>
         /// 用于标记任务执行的起始时间
         /// </summary>

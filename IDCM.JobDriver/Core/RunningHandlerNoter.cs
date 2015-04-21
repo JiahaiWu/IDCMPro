@@ -203,7 +203,7 @@ namespace IDCM.JobDriver.Core
                 this.backWorker = backWorker;
                 this.proxy = handlerProxy;
                 this.desc = description;
-                backWorker.Disposed += LongTermHandleNoter.OnHandleDisposed;
+                backWorker.Disposed += RunningHandlerNoter.OnHandleDisposed;
             }
             private readonly BackgroundWorker backWorker;
             private readonly BGHandlerProxy proxy;

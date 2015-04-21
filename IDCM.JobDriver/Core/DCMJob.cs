@@ -9,18 +9,30 @@ namespace IDCM.JobDriver.Core
 {
     internal class DCMJob
     {
-        public DCMJob(AbsBGHandler handler,JobTypes type=JobTypes.Default)
+        public DCMJob(AbsBGHandler handler)
         {
             this.bgHandler = handler;
-            this.typecode = type;
-            this.jobid = this.GetHashCode();
+            this.jobOption = new JobHandOption();
+            this.jobid = handler.GetType().GetHashCode();
+            timestamp = DateTime.Now.Ticks;
+        }
+        public DCMJob(AbsBGHandler handler, JobHandOption option)
+        {
+            this.bgHandler = handler;
+            this.jobOption = option;
+            this.jobid = handler.GetType().GetHashCode();
+            timestamp = DateTime.Now.Ticks;
         }
 
-        public int JID
+        internal int JID
         {
             get
             {
                 return jobid;
+            }
+            set
+            {
+                jobid = value;
             }
         }
         public AbsBGHandler BGHandler
@@ -31,101 +43,48 @@ namespace IDCM.JobDriver.Core
             }
         }
 
-        public JobTypes Types
+        public JobHandOption JobOption
         {
             get
             {
-                return typecode;
+                return jobOption;
             }
         }
-        public bool IsInterdictMode
+        public bool TimeOut
         {
             get
             {
-                return (typecode & JobTypes.Interdict) > 0;
+                return jobOption.IsTemporalMode &&
+                    new TimeSpan(DateTime.Now.Ticks - timestamp).TotalMilliseconds>jobOption.MaxWaitOutSenconds*1000;
             }
         }
-        public bool IsReplaceMode
+        public object[] Args
         {
             get
             {
-                return (typecode & JobTypes.Replace) > 0;
+                return _args.ToArray();
             }
         }
-        public bool IsPriorityMode
+        public void appendArgs(object[] args)
         {
-            get
-            {
-                return (typecode & JobTypes.Priority) > 0;
-            }
-        }
-        public bool IsTransaction
-        {
-            get
-            {
-                return (typecode & JobTypes.Transaction) > 0;
-            }
-        }
-        public bool IsTemporalMode
-        {
-            get
-            {
-                return (typecode & JobTypes.Temporal) > 0 && maxWaitOutSeconds > 0;
-            }
-        }
-        public bool IsStopAble
-        {
-            get
-            {
-                return (typecode & JobTypes.StopAble) > 0;
-            }
-        }
-        public bool IsLooping
-        {
-            get
-            {
-                return (typecode & JobTypes.Loop) > 0 && minLoopSenconds > 0;
-            }
+            if (_args == null)
+                _args = new List<object>();
+            _args.AddRange(args);
         }
         /// <summary>
-        /// 最长候选等待时长设定(以秒为单位)
+        /// created time stamp
         /// </summary>
-        public int MaxWaitOutSenconds
-        {
-            set
-            {
-                maxWaitOutSeconds = value;
-                typecode = typecode & (maxWaitOutSeconds > 0 ? JobTypes.MaskCode & JobTypes.Temporal : JobTypes.MaskCode & JobTypes.Longterm);
-            }
-        }
-        /// <summary>
-        /// 最小循环时长设定(以秒为单位)
-        /// </summary>
-        public int MinLoopSenconds
-        {
-            set
-            {
-                minLoopSenconds = value;
-                typecode = typecode & (minLoopSenconds > 0 ? JobTypes.MaskCode & JobTypes.Loop : JobTypes.MaskCode & JobTypes.Oneoff);
-            }
-        }
-
+        private long timestamp;
         private AbsBGHandler bgHandler;
-        /// <summary>
-        /// 最长候选等待时长(以秒为单位)
-        /// </summary>
-        private int maxWaitOutSeconds = 0;
-        /// <summary>
-        /// 最小循环时长(以秒为单位)
-        /// </summary>
-        private int minLoopSenconds = 0;
         /// <summary>
         /// 任务请求类型特征码
         /// </summary>
-        private JobTypes typecode = JobTypes.Default;
+        private JobHandOption jobOption;
         /// <summary>
         /// 当前任务识别码
         /// </summary>
         private int jobid;
+
+        private List<object> _args;
     }
 }

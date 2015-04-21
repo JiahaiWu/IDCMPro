@@ -43,17 +43,23 @@
     <Compile Include="Core\BGWorkerInvoker.cs" />
     <Compile Include="Core\DCMJob.cs" />
     <Compile Include="Core\DCMJobScheduler.cs" />
+    <Compile Include="DAM\LazyWorkNote.cs" />
     <Compile Include="Core\HandlerHolderI.cs" />
     <Compile Include="Core\HandleRunStatus.cs" />
     <Compile Include="Core\RunningHandlerNoter.cs" />
+    <Compile Include="DAM\LazyWorkNoteDAM.cs" />
     <Compile Include="JobManager.cs" />
-    <Compile Include="JobTypes.cs" />
+    <Compile Include="JobHandOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IDCM.Base\IDCM.Base.csproj">
       <Project>{1b2dd284-7d56-4ac8-be7c-ff34a807d55e}</Project>
       <Name>IDCM.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IDCM.IDB\IDCM.IDB.csproj">
+      <Project>{935a780c-80bf-4195-b1b6-f6b7ef586c51}</Project>
+      <Name>IDCM.IDB</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
