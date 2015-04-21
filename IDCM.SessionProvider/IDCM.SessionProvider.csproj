@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B2DD284-7D56-4AC8-BE7C-FF34A807D55E}</ProjectGuid>
+    <ProjectGuid>{C08C5BC5-001A-4AF4-B104-AA57342A2280}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IDCM.Base</RootNamespace>
-    <AssemblyName>IDCM.Base</AssemblyName>
+    <RootNamespace>IDCM.SessionProvider</RootNamespace>
+    <AssemblyName>IDCM.SessionProvider</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +22,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,14 +30,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.3.2.0.0\lib\net40\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=3.2.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.3.2.0.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,29 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbsInterfaces\AbsBGHandler.cs" />
-    <Compile Include="AbsInterfaces\IBGHandler.cs" />
-    <Compile Include="AbsInterfaces\IMainManager.cs" />
-    <Compile Include="AbsInterfaces\IMsgListener.cs" />
-    <Compile Include="AbsInterfaces\IMsgObserver.cs" />
-    <Compile Include="ComPO\DCMMessage.cs" />
-    <Compile Include="ComPO\CustomColDef.cs" />
-    <Compile Include="ComPO\CustomTDS.cs" />
-    <Compile Include="ComPO\AsyncMsgNotice.cs" />
-    <Compile Include="ComPO\HandleRunInfo.cs" />
-    <Compile Include="IDCMDataException.cs" />
-    <Compile Include="IDCMException.cs" />
-    <Compile Include="IDCMServException.cs" />
-    <Compile Include="SysConstants.cs" />
-    <Compile Include="ComPO\AuthInfo.cs" />
-    <Compile Include="ObjectPair.cs" />
+    <Compile Include="ControlAsync\ControlAsyncUtil.cs" />
+    <Compile Include="Core\SessionProvider.cs" />
+    <Compile Include="GCMPSession.cs" />
+    <Compile Include="MsgDriver\DCMPublisher.cs" />
+    <Compile Include="MsgDriver\MsgObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\FileUtil.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <ProjectReference Include="..\IDCM.Base\IDCM.Base.csproj">
+      <Project>{1b2dd284-7d56-4ac8-be7c-ff34a807d55e}</Project>
+      <Name>IDCM.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

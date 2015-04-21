@@ -51,7 +51,7 @@ namespace IDCM.Base
         //
         //   innerException:
         //     内部异常引用。
-        protected IDCMException(string message, Exception innerException)
+        public IDCMException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

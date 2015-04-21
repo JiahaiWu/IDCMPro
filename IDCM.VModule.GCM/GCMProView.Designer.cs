@@ -29,33 +29,37 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GCMProView));
             this.gcmTabControl_GCM = new DCMControlLib.GCM.GCMTabControl();
             this.tabPageEx_Local = new DCMControlLib.GCM.TabPageEx();
-            this.tabPageEx_GCM = new DCMControlLib.GCM.TabPageEx();
-            this.tabPage_ABC = new DCMControlLib.GCM.TabPageEx();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer_local = new System.Windows.Forms.SplitContainer();
+            this.dcmDataGridView_local = new DCM.DCMDataGridView();
+            this.tabPageEx_GCM = new DCMControlLib.GCM.TabPageEx();
             this.splitContainer_GCM = new System.Windows.Forms.SplitContainer();
+            this.dcmDataGridView_gcm = new DCM.DCMDataGridView();
+            this.tabPage_ABC = new DCMControlLib.GCM.TabPageEx();
             this.splitContainer_abc = new System.Windows.Forms.SplitContainer();
-            this.dcmDataGridView1 = new DCM.DCMDataGridView();
-            this.dcmDataGridView2 = new DCM.DCMDataGridView();
-            this.abcBrowser1 = new DCMControlLib.GCM.ABCBrowser();
+            this.abcBrowser_abc = new DCMControlLib.GCM.ABCBrowser();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.gcmTabControl_GCM.SuspendLayout();
             this.tabPageEx_Local.SuspendLayout();
-            this.tabPageEx_GCM.SuspendLayout();
-            this.tabPage_ABC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_local)).BeginInit();
             this.splitContainer_local.Panel1.SuspendLayout();
             this.splitContainer_local.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView_local)).BeginInit();
+            this.tabPageEx_GCM.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_GCM)).BeginInit();
             this.splitContainer_GCM.Panel1.SuspendLayout();
             this.splitContainer_GCM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView_gcm)).BeginInit();
+            this.tabPage_ABC.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_abc)).BeginInit();
             this.splitContainer_abc.Panel1.SuspendLayout();
             this.splitContainer_abc.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // gcmTabControl_GCM
@@ -74,7 +78,7 @@
             this.gcmTabControl_GCM.ItemSize = new System.Drawing.Size(150, 30);
             this.gcmTabControl_GCM.Location = new System.Drawing.Point(0, 0);
             this.gcmTabControl_GCM.Name = "gcmTabControl_GCM";
-            this.gcmTabControl_GCM.SelectedIndex = 0;
+            this.gcmTabControl_GCM.SelectedIndex = 2;
             this.gcmTabControl_GCM.Size = new System.Drawing.Size(716, 513);
             this.gcmTabControl_GCM.TabGradient.ColorEnd = System.Drawing.Color.FromArgb(((int)(((byte)(137)))), ((int)(((byte)(223)))), ((int)(((byte)(246)))));
             this.gcmTabControl_GCM.TabGradient.ColorStart = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(67)))), ((int)(((byte)(164)))));
@@ -96,6 +100,54 @@
             this.tabPageEx_Local.TabIndex = 0;
             this.tabPageEx_Local.Text = "Local DataSet";
             // 
+            // splitContainer_local
+            // 
+            this.splitContainer_local.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer_local.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer_local.Name = "splitContainer_local";
+            // 
+            // splitContainer_local.Panel1
+            // 
+            this.splitContainer_local.Panel1.Controls.Add(this.dcmDataGridView_local);
+            this.splitContainer_local.Panel2Collapsed = true;
+            this.splitContainer_local.Size = new System.Drawing.Size(714, 476);
+            this.splitContainer_local.SplitterDistance = 492;
+            this.splitContainer_local.TabIndex = 0;
+            // 
+            // dcmDataGridView_local
+            // 
+            this.dcmDataGridView_local.AllowUserToAddRows = false;
+            this.dcmDataGridView_local.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dcmDataGridView_local.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dcmDataGridView_local.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dcmDataGridView_local.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dcmDataGridView_local.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
+            this.dcmDataGridView_local.EnableHeadersVisualStyles = false;
+            this.dcmDataGridView_local.Location = new System.Drawing.Point(0, 0);
+            this.dcmDataGridView_local.Name = "dcmDataGridView_local";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dcmDataGridView_local.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dcmDataGridView_local.RowHeadersWidth = 100;
+            this.dcmDataGridView_local.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dcmDataGridView_local.RowTemplate.Height = 23;
+            this.dcmDataGridView_local.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dcmDataGridView_local.ShowEditingIcon = false;
+            this.dcmDataGridView_local.Size = new System.Drawing.Size(714, 476);
+            this.dcmDataGridView_local.TabIndex = 0;
+            // 
             // tabPageEx_GCM
             // 
             this.tabPageEx_GCM.BackColor = System.Drawing.Color.White;
@@ -107,6 +159,54 @@
             this.tabPageEx_GCM.Size = new System.Drawing.Size(714, 476);
             this.tabPageEx_GCM.TabIndex = 1;
             this.tabPageEx_GCM.Text = "GCM Publish";
+            // 
+            // splitContainer_GCM
+            // 
+            this.splitContainer_GCM.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer_GCM.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer_GCM.Name = "splitContainer_GCM";
+            // 
+            // splitContainer_GCM.Panel1
+            // 
+            this.splitContainer_GCM.Panel1.Controls.Add(this.dcmDataGridView_gcm);
+            this.splitContainer_GCM.Panel2Collapsed = true;
+            this.splitContainer_GCM.Size = new System.Drawing.Size(714, 476);
+            this.splitContainer_GCM.SplitterDistance = 475;
+            this.splitContainer_GCM.TabIndex = 0;
+            // 
+            // dcmDataGridView_gcm
+            // 
+            this.dcmDataGridView_gcm.AllowUserToAddRows = false;
+            this.dcmDataGridView_gcm.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dcmDataGridView_gcm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dcmDataGridView_gcm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dcmDataGridView_gcm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dcmDataGridView_gcm.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
+            this.dcmDataGridView_gcm.EnableHeadersVisualStyles = false;
+            this.dcmDataGridView_gcm.Location = new System.Drawing.Point(0, 0);
+            this.dcmDataGridView_gcm.Name = "dcmDataGridView_gcm";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Gainsboro;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dcmDataGridView_gcm.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dcmDataGridView_gcm.RowHeadersWidth = 100;
+            this.dcmDataGridView_gcm.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dcmDataGridView_gcm.RowTemplate.Height = 23;
+            this.dcmDataGridView_gcm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dcmDataGridView_gcm.ShowEditingIcon = false;
+            this.dcmDataGridView_gcm.Size = new System.Drawing.Size(714, 476);
+            this.dcmDataGridView_gcm.TabIndex = 0;
             // 
             // tabPage_ABC
             // 
@@ -120,42 +220,6 @@
             this.tabPage_ABC.TabIndex = 2;
             this.tabPage_ABC.Text = "ABC Browser";
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "abc.png");
-            this.imageList1.Images.SetKeyName(1, "gcm_logo.png");
-            this.imageList1.Images.SetKeyName(2, "local.png");
-            // 
-            // splitContainer_local
-            // 
-            this.splitContainer_local.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer_local.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer_local.Name = "splitContainer_local";
-            // 
-            // splitContainer_local.Panel1
-            // 
-            this.splitContainer_local.Panel1.Controls.Add(this.dcmDataGridView1);
-            this.splitContainer_local.Panel2Collapsed = true;
-            this.splitContainer_local.Size = new System.Drawing.Size(714, 476);
-            this.splitContainer_local.SplitterDistance = 492;
-            this.splitContainer_local.TabIndex = 0;
-            // 
-            // splitContainer_GCM
-            // 
-            this.splitContainer_GCM.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer_GCM.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer_GCM.Name = "splitContainer_GCM";
-            // 
-            // splitContainer_GCM.Panel1
-            // 
-            this.splitContainer_GCM.Panel1.Controls.Add(this.dcmDataGridView2);
-            this.splitContainer_GCM.Panel2Collapsed = true;
-            this.splitContainer_GCM.Size = new System.Drawing.Size(714, 476);
-            this.splitContainer_GCM.SplitterDistance = 475;
-            this.splitContainer_GCM.TabIndex = 0;
-            // 
             // splitContainer_abc
             // 
             this.splitContainer_abc.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -164,40 +228,28 @@
             // 
             // splitContainer_abc.Panel1
             // 
-            this.splitContainer_abc.Panel1.Controls.Add(this.abcBrowser1);
+            this.splitContainer_abc.Panel1.Controls.Add(this.abcBrowser_abc);
             this.splitContainer_abc.Panel2Collapsed = true;
             this.splitContainer_abc.Size = new System.Drawing.Size(714, 476);
             this.splitContainer_abc.SplitterDistance = 486;
             this.splitContainer_abc.TabIndex = 0;
             // 
-            // dcmDataGridView1
+            // abcBrowser_abc
             // 
-            this.dcmDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dcmDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dcmDataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dcmDataGridView1.Name = "dcmDataGridView1";
-            this.dcmDataGridView1.RowTemplate.Height = 23;
-            this.dcmDataGridView1.Size = new System.Drawing.Size(714, 476);
-            this.dcmDataGridView1.TabIndex = 0;
+            this.abcBrowser_abc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.abcBrowser_abc.Location = new System.Drawing.Point(0, 0);
+            this.abcBrowser_abc.MinimumSize = new System.Drawing.Size(20, 20);
+            this.abcBrowser_abc.Name = "abcBrowser_abc";
+            this.abcBrowser_abc.Size = new System.Drawing.Size(714, 476);
+            this.abcBrowser_abc.TabIndex = 0;
             // 
-            // dcmDataGridView2
+            // imageList1
             // 
-            this.dcmDataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dcmDataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dcmDataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dcmDataGridView2.Name = "dcmDataGridView2";
-            this.dcmDataGridView2.RowTemplate.Height = 23;
-            this.dcmDataGridView2.Size = new System.Drawing.Size(714, 476);
-            this.dcmDataGridView2.TabIndex = 0;
-            // 
-            // abcBrowser1
-            // 
-            this.abcBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.abcBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.abcBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.abcBrowser1.Name = "abcBrowser1";
-            this.abcBrowser1.Size = new System.Drawing.Size(714, 476);
-            this.abcBrowser1.TabIndex = 0;
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "abc.png");
+            this.imageList1.Images.SetKeyName(1, "gcm_logo.png");
+            this.imageList1.Images.SetKeyName(2, "local.png");
             // 
             // GCMProView
             // 
@@ -208,19 +260,19 @@
             this.Size = new System.Drawing.Size(716, 513);
             this.gcmTabControl_GCM.ResumeLayout(false);
             this.tabPageEx_Local.ResumeLayout(false);
-            this.tabPageEx_GCM.ResumeLayout(false);
-            this.tabPage_ABC.ResumeLayout(false);
             this.splitContainer_local.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_local)).EndInit();
             this.splitContainer_local.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView_local)).EndInit();
+            this.tabPageEx_GCM.ResumeLayout(false);
             this.splitContainer_GCM.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_GCM)).EndInit();
             this.splitContainer_GCM.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView_gcm)).EndInit();
+            this.tabPage_ABC.ResumeLayout(false);
             this.splitContainer_abc.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer_abc)).EndInit();
             this.splitContainer_abc.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dcmDataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -235,8 +287,8 @@
         private System.Windows.Forms.SplitContainer splitContainer_local;
         private System.Windows.Forms.SplitContainer splitContainer_GCM;
         private System.Windows.Forms.SplitContainer splitContainer_abc;
-        private DCM.DCMDataGridView dcmDataGridView1;
-        private DCM.DCMDataGridView dcmDataGridView2;
-        private DCMControlLib.GCM.ABCBrowser abcBrowser1;
+        private DCM.DCMDataGridView dcmDataGridView_local;
+        private DCM.DCMDataGridView dcmDataGridView_gcm;
+        private DCMControlLib.GCM.ABCBrowser abcBrowser_abc;
     }
 }

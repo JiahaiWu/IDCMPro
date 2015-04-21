@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDCM.VService.GCM
 {
-    public class Class1
+    class ABCService
     {
     }
 }
