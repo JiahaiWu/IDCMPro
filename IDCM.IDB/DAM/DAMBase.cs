@@ -90,9 +90,8 @@ namespace IDCM.IDB.DAM
         /// <returns>初始化操作完成与否</returns>
         public static bool prepareTables(ConnLabel sconn)
         {
-#if DEBUG
-            System.Diagnostics.Debug.Assert(sconn != null);
-#endif
+            if (sconn == null)
+                return false;
             int rescode = -1;
             using (SQLiteConnPicker picker = new SQLiteConnPicker(sconn))
             {
@@ -114,10 +113,6 @@ namespace IDCM.IDB.DAM
         /// <returns></returns>
         public static IEnumerable<T>[] SQLQuery<T>(ConnLabel sconn, params string[] sqlExpressions)
         {
-#if DEBUG
-            System.Diagnostics.Debug.Assert(sconn != null);
-            System.Diagnostics.Debug.Assert(sqlExpressions != null);
-#endif
             List<IEnumerable<T>> res = new List<IEnumerable<T>>(sqlExpressions.Count());
             foreach (string sql in sqlExpressions)
             {
@@ -133,6 +128,28 @@ namespace IDCM.IDB.DAM
             return res.ToArray();
         }
         /// <summary>
+        /// 执行SQL非查询命令，返回查询结果集
+        /// </summary>
+        /// <param name="picker"></param>
+        /// <param name="sqlExpressions"></param>
+        /// <returns></returns>
+        public static IEnumerable<T>[] SQLQuery<T>(ConnLabel sconn, params ObjectPair<string,object>[] sqlExpressions)
+        {
+            List<IEnumerable<T>> res = new List<IEnumerable<T>>(sqlExpressions.Count());
+            foreach (ObjectPair<string, object> sqlpair in sqlExpressions)
+            {
+                using (SQLiteConnPicker picker = new SQLiteConnPicker(sconn))
+                {
+#if DEBUG
+                    log.Debug("SQLQuery Info: @CommandText=" + sqlpair);
+#endif
+                    IEnumerable<T> result = picker.getConnection().Query<T>(sqlpair.Key, sqlpair.Val);
+                    res.Add(result);
+                }
+            }
+            return res.ToArray();
+        }
+        /// <summary>
         /// 执行SQL查询命令，返回查询结果集
         /// </summary>
         /// <param name="picker">连接句柄</param>
@@ -140,10 +157,6 @@ namespace IDCM.IDB.DAM
         /// <returns></returns>
         public static int[] executeSQL(ConnLabel sconn, params string[] commands)
         {
-#if DEBUG
-            System.Diagnostics.Debug.Assert(sconn != null);
-            System.Diagnostics.Debug.Assert(commands != null);
-#endif
             List<int> res = new List<int>(commands.Count());
             SQLiteCommand cmd = new SQLiteCommand();
             using (SQLiteConnPicker picker = new SQLiteConnPicker(sconn))
@@ -156,6 +169,33 @@ namespace IDCM.IDB.DAM
                         log.Debug("executeSQL Info: @CommandText=" + execmd);
 #endif
                         int result = picker.getConnection().Execute(execmd);
+                        res.Add(result);
+                    }
+                    transaction.Commit();
+                }
+            }
+            return res.ToArray();
+        }
+        /// <summary>
+        /// 执行SQL查询命令，返回查询结果集
+        /// </summary>
+        /// <param name="picker">连接句柄</param>
+        /// <param name="commands"></param>
+        /// <returns></returns>
+        public static int[] executeSQL(ConnLabel sconn, params ObjectPair<string, object>[] commands)
+        {
+            List<int> res = new List<int>(commands.Count());
+            SQLiteCommand cmd = new SQLiteCommand();
+            using (SQLiteConnPicker picker = new SQLiteConnPicker(sconn))
+            {
+                using (SQLiteTransaction transaction = picker.getConnection().BeginTransaction())
+                {
+                    foreach (ObjectPair<string, object> execmdpair in commands)
+                    {
+#if DEBUG
+                        log.Debug("executeSQL Info: @CommandText=" + execmdpair);
+#endif
+                        int result = picker.getConnection().Execute(execmdpair.Key, execmdpair.Val);
                         res.Add(result);
                     }
                     transaction.Commit();

@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +37,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.2.0.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppContext\IDCMAppContext.cs" />
     <Compile Include="GCMPro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,9 +113,9 @@
       <Project>{f280276f-8d7c-41ad-b62f-6e9f34693222}</Project>
       <Name>DCMControlLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IDCM.IDB\IDCM.IDB.csproj">
-      <Project>{935a780c-80bf-4195-b1b6-f6b7ef586c51}</Project>
-      <Name>IDCM.IDB</Name>
+    <ProjectReference Include="..\IDCM.Base\IDCM.Base.csproj">
+      <Project>{1b2dd284-7d56-4ac8-be7c-ff34a807d55e}</Project>
+      <Name>IDCM.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\IDCM.VModule.GCM\IDCM.VModule.GCM.csproj">
       <Project>{c3639c5d-8a22-4c09-9a42-5a469866b974}</Project>
@@ -110,6 +123,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

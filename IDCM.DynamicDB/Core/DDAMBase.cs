@@ -38,7 +38,6 @@ namespace IDCM.DynamicDB.Core
             string cmd = "drop table if exists " + tablename + ";";
             string cmd1 = "delete from " + typeof(CustomTableDef).Name + " where TName ='" + tablename + "';";
             string cmd2 = "delete from " + typeof(CustomTColDef).Name + " where TName ='" + tablename + "';";
-            string cmd3 = "delete from " + typeof(CustomViewColMap).Name + " where TName ='" + tablename + "';";
             int[] res = DataSupporter.executeSQL(dbm, cmd,cmd1, cmd2, cmd3);
             return DataSupporter.checkExecuteOk(res);
         }
@@ -81,7 +80,8 @@ namespace IDCM.DynamicDB.Core
             rid.IsInter = true;
             rid.Comments = "CTDRecordDA.CTD_RID";
             rid.TName = tablename;
-            rid.Corder = ctcds.Count;
+            rid.COrder = ctcds.Count;
+            rid.ViewOrder = ctcds.Count;
             ctcds.Add(rid);
             foreach (CustomColDef ccd in ccds.OrderBy(rs=>rs.Corder))
             {
@@ -89,7 +89,8 @@ namespace IDCM.DynamicDB.Core
                 ctcd.Attr = CVNameWrapper.toDBName(ccd.Attr);
                 ctcd.AttrType = ccd.AttrType;
                 ctcd.Comments = ccd.Comments;
-                ctcd.Corder = ctcds.Count;
+                ctcd.COrder = ctcds.Count;
+                ctcd.ViewOrder = ctcds.Count * (ccd.IsRequire ? 1 : -1);
                 ctcd.DefaultVal = ccd.DefaultVal;
                 ctcd.IsRequire = ccd.IsRequire;
                 ctcd.IsUnique = ccd.IsUnique;
@@ -112,7 +113,7 @@ namespace IDCM.DynamicDB.Core
             {
                 StringBuilder cmdBuilder = new StringBuilder();
                 cmdBuilder.Append("insert Or Replace into " + typeof(CustomTColDef).Name
-                    + "(attr,attrType,comments,defaultVal,corder,isInter,isRequire,isUnique,restrict) values(");
+                    + "(attr,attrType,comments,defaultVal,COrder,isInter,isRequire,isUnique,restrict,ViewOrder) values(");
                 cmdBuilder.Append("'").Append(ctcd.Attr).Append("',");
                 if (ctcd.AttrType == null)
                     cmdBuilder.Append("null,");
@@ -126,14 +127,14 @@ namespace IDCM.DynamicDB.Core
                     cmdBuilder.Append("null,");
                 else
                     cmdBuilder.Append("'").Append(ctcd.DefaultVal).Append("',");
-                cmdBuilder.Append(ctcd.Corder).Append(",");
+                cmdBuilder.Append(ctcd.COrder).Append(",");
                 cmdBuilder.Append("'").Append(ctcd.IsInter).Append("',");
                 cmdBuilder.Append("'").Append(ctcd.IsRequire).Append("',");
                 cmdBuilder.Append("'").Append(ctcd.IsUnique).Append("',");
                 if (ctcd.Restrict == null)
                     cmdBuilder.Append("null");
                 else
-                    cmdBuilder.Append("'").Append(ctcd.Restrict).Append("'");
+                    cmdBuilder.Append("'").Append(ctcd.Restrict).Append("',");
                 cmdBuilder.Append(");");
                 cmds.Add(cmdBuilder.ToString());
             }

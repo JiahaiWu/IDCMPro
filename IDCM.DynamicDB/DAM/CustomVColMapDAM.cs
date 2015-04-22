@@ -15,6 +15,13 @@ namespace IDCM.DynamicDB.DAM
             string cmd = "SELECT * FROM CustomVColMap where TName='" + tableName + "' order by vieworder";
             return DataSupporter.ListSQLQuery<CustomViewColMap>(dbm, cmd);
         }
+        public static List<CustomTColDef> loadAllColDefs(IDBManager dbm, string tableName)
+        {
+            string cmd = "SELECT CustomTColDef.*,CustomVColMap.ViewOrder FROM CustomTColDef join CustomVColMap " +
+                "on CustomVColMap.Attr=CustomTColDef.Attr and CustomVColMap.TName=CustomTColDef.TName "+
+                "and CustomTColDef.TName='" + tableName + "' order by CustomVColMap.vieworder";
+            return DataSupporter.ListSQLQuery<CustomTColDef>(dbm, cmd);
+        }
         public static bool updateViewOrder(IDBManager dbm, string tableName, Dictionary<string, int> mapValues)
         {
             if (mapValues == null || mapValues.Count < 1)

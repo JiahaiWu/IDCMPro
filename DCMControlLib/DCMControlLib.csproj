@@ -54,13 +54,9 @@
     <Compile Include="BaseItem\DCMButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DCMDGV\DCMButtonEditControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="DCMDGV\DCMDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DCMDGV\DCMButtonDGVCell.cs" />
     <Compile Include="DCMDGV\DCMTextDGVCell.cs" />
     <Compile Include="DCMDGV\DCMTextDGVColumn.cs" />
     <Compile Include="DCMDGV\DCMTextEditControl.cs">
@@ -69,7 +65,6 @@
     <Compile Include="BaseItem\DCMTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DCMDGV\DCMButtonDGVColumn.cs" />
     <Compile Include="Form11.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

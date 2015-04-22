@@ -8,11 +8,19 @@ using IDCM.IDB;
 using IDCM.DynamicDB.DAM;
 using IDCM.Base.ComPO;
 using System.Data;
+using IDCM.Base;
 
 namespace IDCM.DynamicDB
 {
     public class DynamicDBManager
     {
+        public DynamicDBManager(IDBManager dbm=null)
+        {
+            if (dbm != null)
+                if (!DDAMBase.prepareTables(dbm))
+                    throw new IDCMException("Failed to prepare tables for DynamicDBManager!");
+        }
+
         public bool prepare(IDBManager dbm)
         {
             return DDAMBase.prepareTables(dbm);
@@ -26,13 +34,29 @@ namespace IDCM.DynamicDB
             }
             return false;
         }
+        public bool existTable(IDBManager dbm,string tableName)
+        {
+            return CustomTableDefDAM.queryTable(dbm, tableName)!=null;
+        }
+        public Dictionary<string, int> getAttrViewMapping(string tableName, bool withInnerField = true)
+        {
+            if (withInnerField)
+                return ColumnMappingHolder.getAttrViewMapping(tableName);
+            else
+                return ColumnMappingHolder.getCustomDefAttrViewMapping(tableName);
+        }
+        public List<CustomTColDef> getViewMappingAttrDef(IDBManager dbm, string tableName)
+        {
+            List<CustomTColDef> ctcds=CustomVColMapDAM.loadAllColDefs(dbm, tableName);
+            return res;
+        }
         /// <summary>
         /// 查询记录
         /// </summary>
         /// <param name="nodeIds"></param>
         /// <param name="rids"></param>
         /// <returns></returns>
-        public static DataTable queryCTDRecord(IDBManager wsm, string tableName, string rids, out string cmdstr)
+        public DataTable queryCTDRecord(IDBManager wsm, string tableName, string rids, out string cmdstr)
         {
             return CTDRecordDAM.queryCTDRecord(wsm, tableName, rids,out cmdstr);
         }
@@ -42,7 +66,7 @@ namespace IDCM.DynamicDB
         /// <param name="nodeIds"></param>
         /// <param name="rids"></param>
         /// <returns></returns>
-        public static DataTable queryCTDRecord(IDBManager wsm, string tableName, int limit, int offset, out string cmdstr)
+        public DataTable queryCTDRecord(IDBManager wsm, string tableName, int limit, int offset, out string cmdstr)
         {
             return CTDRecordDAM.queryCTDRecord(wsm, tableName, limit,offset,out cmdstr);
         }
@@ -51,7 +75,7 @@ namespace IDCM.DynamicDB
         /// </summary>
         /// <param name="nodeIds"></param>
         /// <returns></returns>
-        public static DataTable queryCTDRecordBySQL(IDBManager wsm, string tableName, string whereCmd, long limit = 0, long offset = 0)
+        public DataTable queryCTDRecordBySQL(IDBManager wsm, string tableName, string whereCmd, long limit = 0, long offset = 0)
         {
             return CTDRecordDAM.queryCTDRecordBySQL(wsm, tableName, whereCmd,limit,offset);
         }
@@ -61,9 +85,22 @@ namespace IDCM.DynamicDB
         /// </summary>
         /// <param name="mapValues"></param>
         /// <returns></returns>
-        public static long mergeRecord(IDBManager wsm, string tableName, Dictionary<string, string> mapValues)
+        public long mergeRecord(IDBManager wsm, string tableName, Dictionary<string, string> mapValues)
         {
             return CTDRecordDAM.mergeRecord(wsm, tableName, mapValues);
+        }
+        /// <summary>
+        /// 完整更新数据记录
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="cellVal"></param>
+        /// <param name="attrName"></param>
+        /// <returns></returns>
+        public int updateAttrVal(IDBManager wsm, string tableName, long rid,string attrName,string attrVal)
+        {
+            Dictionary<string, string> mapValues = new Dictionary<string, string>(1);
+            mapValues.Add(attrName, attrVal);
+            return CTDRecordDAM.updateAttrVal(wsm, tableName, rid, mapValues);
         }
 
         /// <summary>
@@ -73,7 +110,7 @@ namespace IDCM.DynamicDB
         /// <param name="cellVal"></param>
         /// <param name="attrName"></param>
         /// <returns></returns>
-        public static int updateAttrVal(IDBManager wsm, string tableName, long rid, Dictionary<string, string> mapValues)
+        public int updateAttrVal(IDBManager wsm, string tableName, long rid, Dictionary<string, string> mapValues)
         {
             return CTDRecordDAM.updateAttrVal(wsm, tableName, rid,mapValues);
         }
@@ -83,7 +120,7 @@ namespace IDCM.DynamicDB
         /// <param name="lid"></param>
         /// <param name="plid"></param>
         /// <returns></returns>
-        public static long addNewRecord(IDBManager wsm, string tableName, Dictionary<string, string> mapValues)
+        public long addNewRecord(IDBManager wsm, string tableName, Dictionary<string, string> mapValues)
         {
             return CTDRecordDAM.addNewRecord(wsm, tableName, mapValues);
         }
@@ -91,7 +128,7 @@ namespace IDCM.DynamicDB
         /// 删除记录
         /// </summary>
         /// <param name="uid"></param>
-        public static bool deleteRec(IDBManager wsm, string tableName, long rid)
+        public bool deleteRec(IDBManager wsm, string tableName, long rid)
         {
             return CTDRecordDAM.deleteRec(wsm, tableName, rid);
         }

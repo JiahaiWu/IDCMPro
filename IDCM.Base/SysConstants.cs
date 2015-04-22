@@ -32,10 +32,6 @@ namespace IDCM.Base
         /// </summary>
         public const string CTableDef = "CTableDef";
         /// <summary>
-        /// Default System Setting File Templates
-        /// </summary>
-        public const string CTableTemplate = "CTableTemplate";
-        /// <summary>
         /// 帮助文档资源定位
         /// </summary>
         public const string HelpBase = "HelpBase";
@@ -88,6 +84,7 @@ namespace IDCM.Base
         /// 默认的数据库连接池连接数
         /// </summary>
         public const int Default_DB_REQUEST_POOL_NUM = 2;
+        public const string GCMProLocal_CTable = "GCMProLocal";
         #endregion
     }
 }

@@ -7,6 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IDCM.VModule.GCM.ViewManager;
+using IDCM.IDB;
+using IDCM.Base;
+using IDCM.Base.Utils;
+using System.Configuration;
+using System.IO;
+using IDCM.DynamicDB;
+using IDCM.VModule.GCM.ComponentUtil;
 
 namespace IDCM.VModule.GCM
 {
@@ -15,11 +23,71 @@ namespace IDCM.VModule.GCM
         public GCMProView()
         {
             InitializeComponent();
-            this.dcmDataGridView_local.CellValueChanged += dataGridView_local_CellValueChanged;
-            this.dcmDataGridView_local.DragEnter += dataGridView_items_DragEnter;
-            this.dcmDataGridView_local.DragDrop += dataGridView_items_DragDrop;
+            InitializeGCMPro();
+            startDataRender();
         }
-        
+        /// <summary>
+        /// 初始化流程
+        /// </summary>
+        private void InitializeGCMPro()
+        {
+            string initEnvDir = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string exePath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+            string defaultCfgPath = Path.GetDirectoryName(exePath) + Path.DirectorySeparatorChar + Path.GetFileName(exePath).Replace(".vshost.exe", ".exe") + ".config";
+            try
+            {
+                string dbPath = ConfigurationManager.AppSettings[SysConstants.LastWorkSpace];
+                if (dbPath == null || dbPath.Trim().Length < 1)
+                {
+                    string wsDir = initEnvDir + "/GCMPro/";
+                    Directory.CreateDirectory(wsDir);
+                    dbPath = wsDir + CUIDGenerator.getUID(CUIDGenerator.Radix_32) + SysConstants.DB_SUFFIX;
+                    ConfigurationHelper.SetAppConfig(SysConstants.LastWorkSpace, dbPath, defaultCfgPath);
+                }
+                dbManager = new IDBManager(dbPath);
+                ddbManager = new DynamicDBManager(dbManager);
+                localServManager = new LocalServManager(dbManager, ddbManager);
+                gcmServManager = new GCMServManager(dbManager);
+                abcServManager = new ABCServManager(dbManager);
+                servInvoker = new AsyncServInvoker();
+                this.dcmDataGridView_local.CellValueChanged += dataGridView_local_CellValueChanged;
+                this.dcmDataGridView_local.DragEnter += dataGridView_items_DragEnter;
+                this.dcmDataGridView_local.DragDrop += dataGridView_items_DragDrop;
+                servInvoker.OnDataPrepared += OnDataPrepared;
+                this.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                this.Enabled = false;
+                ConfigurationHelper.SetAppConfig(SysConstants.LastWorkSpace, "", defaultCfgPath);
+                log.Error("GCM Pro View Initialize Failed!",ex);
+                MessageBox.Show("GCM Pro View Initialize Failed!");
+            }
+            finally
+            {
+                this.Visible = this.Enabled;
+            }
+        }
+        private void startDataRender()
+        {
+            if (!localServManager.checkDTableSetting())
+            {
+                log.Error("Start Local Data View Failed!!");
+                MessageBox.Show("Start Local Data View Failed!");
+                this.Enabled = false;
+                this.Visible = false;
+                return;
+            }
+            else
+            {
+                localServManager.loadDGVColumns(dcmDataGridView_local);
+                localServManager.loadDGVData(dcmDataGridView_local);
+            }
+        }
+
+        private void OnDataPrepared(object sender, IDCMAsyncEventArgs e)
+        {
+        }
         /// <summary>
         /// 单元格的值改变后，执行更新或插入操作
         /// </summary>
@@ -30,7 +98,7 @@ namespace IDCM.VModule.GCM
             if (e.ColumnIndex > 0)
             {
                 DataGridViewRow dgvr = dcmDataGridView_local.Rows[e.RowIndex];
-                DataGridViewCell idCell = dgvr.Cells[CTDRecordA.CTD_RID];
+                DataGridViewCell idCell = dgvr.Cells[localServManager.CTD_RID];
                 DataGridViewCell cell = dgvr.Cells[e.ColumnIndex];
                 if (cell != null && idCell != null  && cell.Visible)
                 {
@@ -39,7 +107,7 @@ namespace IDCM.VModule.GCM
                     string attrName = dcmDataGridView_local.Columns[e.ColumnIndex].Name;
                     if (rid != null && cellVal != null)
                     {
-                        manager.updateAttrVal(rid, cellVal, attrName);
+                        localServManager.updateAttrVal(rid, cellVal, attrName);
                     }
                 }
             }
@@ -77,10 +145,18 @@ namespace IDCM.VModule.GCM
                     bool exists = System.IO.File.Exists(fpath);
                     if (exists == true)
                     {
-                        manager.importData(fpath);
+                        localServManager.importData(fpath,this.dcmDataGridView_local);
                     }
                 }
             }
         }
+
+        private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        private AsyncServInvoker servInvoker = null;
+        private IDBManager dbManager = null;
+        private DynamicDBManager ddbManager = null;
+        private GCMServManager gcmServManager = null;
+        private LocalServManager localServManager = null;
+        private ABCServManager abcServManager = null;
     }
 }

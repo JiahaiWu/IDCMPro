@@ -39,7 +39,11 @@ namespace IDCM.DynamicDB
         /// <summary>
         /// 默认的排序标记值
         /// </summary>
-        public int Corder { get; set; }
+        public int COrder { get; set; }
+        /// <summary>
+        /// 用于自定义显示的排序标记值
+        /// </summary>
+        public int ViewOrder { get; set; }
         /// <summary>
         /// 是否为内置属性
         /// </summary>

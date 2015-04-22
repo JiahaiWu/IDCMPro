@@ -12,7 +12,7 @@ namespace IDCM.Base.ComPO
     public class AsyncMsgNotice
     {
         public static readonly AsyncMsgNotice DataPrepared = new AsyncMsgNotice(MsgNoticeType.DataPrepared, "Data Prepared");
-        public static readonly AsyncMsgNotice RetryQuickStartConnect = new AsyncMsgNotice(MsgNoticeType.RetryQuickStartConnect, "Retry Quick Start Connect");
+        public static readonly AsyncMsgNotice LocalDataImported = new AsyncMsgNotice(MsgNoticeType.LocalDataImported, "Local Data Imported");
         
         /// <summary>
         /// For iterator 
@@ -22,7 +22,7 @@ namespace IDCM.Base.ComPO
             get
             {
                 yield return DataPrepared;
-                yield return RetryQuickStartConnect;
+                yield return LocalDataImported;
             }
         }
         private readonly string msgTag;
@@ -60,6 +60,6 @@ namespace IDCM.Base.ComPO
     public enum MsgNoticeType
     {
         DataPrepared = 0,
-        RetryQuickStartConnect = 1,
+        LocalDataImported = 1,
     }
 }

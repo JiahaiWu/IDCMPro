@@ -41,7 +41,8 @@ namespace IDCM.Base.ComPO
     /// </summary>
     public enum DCMMsgType
     {
-        trace = 0,
-        tip = 1,
+        Trace = 0,
+        Tip = 1,
+        Alert=2
     }
 }

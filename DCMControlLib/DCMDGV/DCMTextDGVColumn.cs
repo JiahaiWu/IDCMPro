@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DCM.DCMDGV
+namespace DCMControlLib
 {
     public class DCMTextDGVColumn:DataGridViewColumn
     {

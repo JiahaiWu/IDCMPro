@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace DCM
+namespace DCMControlLib
 {
     public class DCMDataGridView:DataGridView
     {
