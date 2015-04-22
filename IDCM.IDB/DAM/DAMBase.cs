@@ -11,6 +11,7 @@ using System.Data.SQLite;
 using System.Data.SQLite.Generic;
 using IDCM.Base;
 using System.IO;
+using System.Reflection;
 
 namespace IDCM.IDB.DAM
 {
@@ -218,11 +219,81 @@ namespace IDCM.IDB.DAM
             + "AppVercode Real default " + dbvn.AppVercode +","
             + "ConfigSyncTag INTEGER DEFAULT '" + dbvn.ConfigSyncTag + "');";
             strbuilder.Append(cmd).Append("\n");
+            //创建基础自增长序列及版本记录数据表
+            cmd = ModelToDBSQL(typeof(CTDRecord), CTDRecord.KeyName);
+            strbuilder.Append(cmd).Append("\n");
+            //创建基础自增长序列及版本记录数据表
+            cmd = ModelToDBSQL(typeof(CTDRecordMap), CTDRecordMap.KeyName);
+            strbuilder.Append(cmd).Append("\n");
             return strbuilder.ToString();
         }
         #endregion
 
-
+        protected static string ModelToDBSQL(Type poType,string keyName,bool wrapperName=true)
+        {
+            StringBuilder sb = new StringBuilder();
+            try
+            {
+                FieldInfo[] fis = poType.GetFields(BindingFlags.SetProperty);
+                sb.Append("Create Table if Not Exists ").Append(poType.Name).Append("(");
+                foreach (FieldInfo fi in fis)
+                {
+                    string type = "Text";
+                    Type clrType = fi.FieldType;
+                    if (clrType == typeof(Boolean) || clrType == typeof(Byte) || clrType == typeof(UInt16) || clrType == typeof(SByte) || clrType == typeof(Int16) || clrType == typeof(Int32))
+                    {
+                        type = "integer";
+                    }
+                    else if (clrType == typeof(UInt32) || clrType == typeof(Int64))
+                    {
+                        type = "bigint";
+                    }
+                    else if (clrType == typeof(Single) || clrType == typeof(Double) || clrType == typeof(Decimal))
+                    {
+                        type = "double";
+                    }
+                    else if (clrType == typeof(String))
+                    {
+                        type = "nvarchar";
+                    }
+                    else if (clrType == typeof(DateTime))
+                    {
+                        type = "datetime";
+                    }
+                    else if (clrType.IsEnum)
+                    {
+                        type = "integer";
+                    }
+                    else if (clrType == typeof(byte[]))
+                    {
+                        type = "blob";
+                    }
+                    else if (clrType == typeof(Guid))
+                    {
+                        type = "nvarchar(36)";
+                    }
+                    else
+                    {
+                        throw new NotSupportedException("Unknown Type for ModelToDBSQL(...). @clrTYpe=" + clrType);
+                    }
+                    if(wrapperName)
+                        sb.Append(CVNameWrapper.toDBName(fi.Name)).Append(" ").Append(type);
+                    else
+                        sb.Append(fi.Name).Append(" ").Append(type);
+                    if (fi.Name.Equals(keyName, StringComparison.CurrentCultureIgnoreCase))
+                        sb.Append(" PRIMARY KEY,");
+                    else
+                        sb.Append(",");
+                }
+                sb.Append(");");
+            }
+            catch (Exception ex)
+            {
+                sb.Length = 0;
+                throw new IDCMException("ModelToDBSQL Failed.",ex);
+            }
+            return sb.ToString();
+        }
 
         private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
         /// <summary>

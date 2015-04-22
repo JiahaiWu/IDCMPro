@@ -147,14 +147,6 @@
       <Project>{1b2dd284-7d56-4ac8-be7c-ff34a807d55e}</Project>
       <Name>IDCM.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IDCM.DynamicDB.Check\IDCM.DynamicDB.Check.csproj">
-      <Project>{acbd75fe-498c-41ba-93ea-4173f8d8f1fe}</Project>
-      <Name>IDCM.DynamicDB.Check</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IDCM.DynamicDB\IDCM.DynamicDB.csproj">
-      <Project>{706695ab-d200-4b97-bb24-b40f595196b6}</Project>
-      <Name>IDCM.DynamicDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IDCM.IDB\IDCM.IDB.csproj">
       <Project>{935a780c-80bf-4195-b1b6-f6b7ef586c51}</Project>
       <Name>IDCM.IDB</Name>

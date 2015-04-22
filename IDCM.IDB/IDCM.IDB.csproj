@@ -66,8 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CVNameWrapper.cs" />
     <Compile Include="DAM\BaseInfoNote.cs" />
     <Compile Include="DAM\BaseInfoNoteDAM.cs" />
+    <Compile Include="DAM\CTDRecord.cs" />
+    <Compile Include="DAM\CTDRecordDAM.cs" />
+    <Compile Include="DAM\CTDRecordMap.cs" />
     <Compile Include="DAM\DAMBase.cs" />
     <Compile Include="DataSupporter.cs" />
     <Compile Include="DBSpaceKeeper.cs" />
@@ -88,6 +92,7 @@
       <Name>IDCM.Base</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.96.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.96.0\build\net45\System.Data.SQLite.Core.targets')" />
