@@ -12,6 +12,7 @@ using System.Data.SQLite.Generic;
 using IDCM.Base;
 using System.IO;
 using System.Reflection;
+using IDCM.Base.Utils;
 
 namespace IDCM.IDB.DAM
 {
@@ -101,6 +102,10 @@ namespace IDCM.IDB.DAM
                     string baseTableDefs = getBasicTableCmds();
                     log.Debug("PrepareTables @SQLCommand=" + baseTableDefs);
                     rescode = picker.getConnection().Execute(baseTableDefs);
+
+                    string CTDTableDefs = getCustomTableCmds();
+                    log.Debug("PrepareTables @SQLCommand=" + CTDTableDefs);
+                    rescode = picker.getConnection().Execute(CTDTableDefs);
                     transaction.Commit();
                 }
             }
@@ -142,7 +147,7 @@ namespace IDCM.IDB.DAM
                 using (SQLiteConnPicker picker = new SQLiteConnPicker(sconn))
                 {
 #if DEBUG
-                    log.Debug("SQLQuery Info: @CommandText=" + sqlpair);
+                    log.Debug("SQLQuery Info: @CommandText=" + SQLiteUtil.parameterizedSQLEscape(sqlpair.Key, sqlpair.Val));
 #endif
                     IEnumerable<T> result = picker.getConnection().Query<T>(sqlpair.Key, sqlpair.Val);
                     res.Add(result);
@@ -194,7 +199,7 @@ namespace IDCM.IDB.DAM
                     foreach (ObjectPair<string, object> execmdpair in commands)
                     {
 #if DEBUG
-                        log.Debug("executeSQL Info: @CommandText=" + execmdpair);
+                        log.Debug("executeSQL Info: @CommandText=" + SQLiteUtil.parameterizedSQLEscape(execmdpair.Key, execmdpair.Val));
 #endif
                         int result = picker.getConnection().Execute(execmdpair.Key, execmdpair.Val);
                         res.Add(result);
@@ -212,74 +217,50 @@ namespace IDCM.IDB.DAM
             string cmd = null;
             BaseInfoNote dbvn = new BaseInfoNote();
             //创建基础自增长序列及版本记录数据表
-            cmd = "Create Table if Not Exists " + typeof(BaseInfoNote).Name + "("
-            + "SeqId INTEGER primary key DEFAULT " + dbvn.SeqId + ","
-            + "DbType Text default '" + dbvn.DbType + "', "
-            + "AppType Text default '" + dbvn.AppType + "',"
-            + "AppVercode Real default " + dbvn.AppVercode +","
-            + "ConfigSyncTag INTEGER DEFAULT '" + dbvn.ConfigSyncTag + "');";
+            cmd = "Create Table if Not Exists BaseInfoNote("
+            + "SeqId INTEGER primary key DEFAULT @,"
+            + "DbType Text default @,"
+            + "AppType Text default @,"
+            + "AppVercode Real default @,"
+            + "ConfigSyncTag INTEGER DEFAULT @);";
+            strbuilder.Append(SQLiteUtil.parameterizedSQLEscape(cmd,
+                dbvn.SeqId,dbvn.DbType,dbvn.AppType,dbvn.AppVercode,dbvn.ConfigSyncTag)).Append("\n");
             strbuilder.Append(cmd).Append("\n");
-            //创建基础自增长序列及版本记录数据表
-            cmd = ModelToDBSQL(typeof(CTDRecord), CTDRecord.KeyName);
+            return strbuilder.ToString();
+        }
+        public static string getCustomTableCmds()
+        {
+            StringBuilder strbuilder = new StringBuilder();
+            string cmd = null;
+            BaseInfoNote dbvn = new BaseInfoNote();
+            cmd = ModelToDBSQL(typeof(CTDRecord), CTDRecord.KeyName,);
             strbuilder.Append(cmd).Append("\n");
-            //创建基础自增长序列及版本记录数据表
             cmd = ModelToDBSQL(typeof(CTDRecordMap), CTDRecordMap.KeyName);
             strbuilder.Append(cmd).Append("\n");
             return strbuilder.ToString();
         }
         #endregion
 
-        protected static string ModelToDBSQL(Type poType,string keyName,bool wrapperName=true)
+        protected static string ModelToDBSQL(Type poType,string keyName)
         {
             StringBuilder sb = new StringBuilder();
             try
             {
                 FieldInfo[] fis = poType.GetFields(BindingFlags.SetProperty);
-                sb.Append("Create Table if Not Exists ").Append(poType.Name).Append("(");
+                sb.Append("Create Table if Not Exists ");
+                if (SQLiteUtil.isDBNameOk(poType.Name))
+                    sb.Append(poType.Name);
+                else
+                    throw new IDCMDataException("Unsupport name for Table Name. @name=" + poType.Name);
+                sb.Append("(");
                 foreach (FieldInfo fi in fis)
                 {
-                    string type = "Text";
-                    Type clrType = fi.FieldType;
-                    if (clrType == typeof(Boolean) || clrType == typeof(Byte) || clrType == typeof(UInt16) || clrType == typeof(SByte) || clrType == typeof(Int16) || clrType == typeof(Int32))
-                    {
-                        type = "integer";
-                    }
-                    else if (clrType == typeof(UInt32) || clrType == typeof(Int64))
-                    {
-                        type = "bigint";
-                    }
-                    else if (clrType == typeof(Single) || clrType == typeof(Double) || clrType == typeof(Decimal))
-                    {
-                        type = "double";
-                    }
-                    else if (clrType == typeof(String))
-                    {
-                        type = "nvarchar";
-                    }
-                    else if (clrType == typeof(DateTime))
-                    {
-                        type = "datetime";
-                    }
-                    else if (clrType.IsEnum)
-                    {
-                        type = "integer";
-                    }
-                    else if (clrType == typeof(byte[]))
-                    {
-                        type = "blob";
-                    }
-                    else if (clrType == typeof(Guid))
-                    {
-                        type = "nvarchar(36)";
-                    }
+                    if (SQLiteUtil.isDBNameOk(fi.Name))
+                        sb.Append(poType.Name);
                     else
-                    {
-                        throw new NotSupportedException("Unknown Type for ModelToDBSQL(...). @clrTYpe=" + clrType);
-                    }
-                    if(wrapperName)
-                        sb.Append(CVNameWrapper.toDBName(fi.Name)).Append(" ").Append(type);
-                    else
-                        sb.Append(fi.Name).Append(" ").Append(type);
+                        throw new IDCMDataException("Unsupport name for Filed Name. @name=" + poType.Name);
+                    string type = SQLiteUtil.toSQLiteTypeDef(fi.FieldType);
+                    sb.Append(fi.Name).Append(" ").Append(type);
                     if (fi.Name.Equals(keyName, StringComparison.CurrentCultureIgnoreCase))
                         sb.Append(" PRIMARY KEY,");
                     else

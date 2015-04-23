@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDCM.Base;
+using IDCM.Base.Utils;
 
 namespace IDCM.IDB.DAM
 {
@@ -82,12 +83,12 @@ namespace IDCM.IDB.DAM
             {
                 if (key.Equals(CTDRecord.KeyName))
                     continue;
-                cmdBuilder.Append(",").Append(key);
+                cmdBuilder.Append(",").Append(SQLiteUtil.sqliteEscape(key));
             }
             cmdBuilder.Append(") values (" + rid);
             foreach (KeyValuePair<string, string> kvpair in mapValues)
             {
-                cmdBuilder.Append(",").Append("'" + kvpair.Value + "'");
+                cmdBuilder.Append(",").Append("'" + SQLiteUtil.sqliteEscape(kvpair.Value) + "'");
             }
             cmdBuilder.Append(")");
             DataSupporter.executeSQL(wsm, cmdBuilder.ToString());
@@ -114,7 +115,7 @@ namespace IDCM.IDB.DAM
                     continue;
                 if (!kvpair.Equals(fikv))
                     cmdBuilder.Append(",");
-                cmdBuilder.Append(kvpair.Key).Append("='" + kvpair.Value + "'");
+                cmdBuilder.Append(SQLiteUtil.sqliteEscape(kvpair.Key)).Append("='" + SQLiteUtil.sqliteEscape(kvpair.Value) + "'");
             }
             cmdBuilder.Append(" where " + CTDRecord.KeyName + "=" + rid);
             return DataSupporter.executeSQL(wsm, cmdBuilder.ToString());
@@ -134,12 +135,12 @@ namespace IDCM.IDB.DAM
             {
                 if (key.Equals(CTDRecord.KeyName))
                     continue;
-                cmdBuilder.Append(",").Append(key);
+                cmdBuilder.Append(",").Append(SQLiteUtil.sqliteEscape(key));
             }
             cmdBuilder.Append(") values (" + rid);
             foreach (KeyValuePair<string, string> kvpair in mapValues)
             {
-                cmdBuilder.Append(",").Append("'" + kvpair.Value + "'");
+                cmdBuilder.Append(",").Append("'" + SQLiteUtil.sqliteEscape(kvpair.Value) + "'");
             }
             cmdBuilder.Append(")");
             DataSupporter.executeSQL(wsm, cmdBuilder.ToString());
@@ -152,7 +153,7 @@ namespace IDCM.IDB.DAM
         public static bool deleteRec(IDBManager wsm,  long rid)
         {
             string cmd = "delete from " + typeof(CTDRecord).Name + " where " + CTDRecord.KeyName + "=" + rid;
-            return DataSupporter.checkExecuteOk(DataSupporter.executeSQL(wsm, cmd));
+            return SQLiteUtil.checkExecuteOk(DataSupporter.executeSQL(wsm, cmd));
         }
     }
 }

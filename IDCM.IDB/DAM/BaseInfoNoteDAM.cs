@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using IDCM.IDB.DHCP;
+using IDCM.Base.Utils;
 
 namespace IDCM.IDB.DAM
 {
@@ -26,7 +27,8 @@ namespace IDCM.IDB.DAM
                 ++autoIncrementNum;
                 if (autoIncrementNum % 10 == 0)//如果是10的整数
                 {
-                    string cmd = "update " + typeof(BaseInfoNote).Name + " set seqId=" + autoIncrementNum;//更新BaseInfoNote seqId
+                    string cmd = "update " + typeof(BaseInfoNote).Name + " set seqId=@autoIncrementNum";//更新BaseInfoNote seqId
+                    cmd = SQLiteUtil.parameterizedSQLEscape(cmd, typeof(BaseInfoNote), autoIncrementNum);
                     using (SQLiteConnPicker picker = new SQLiteConnPicker(sconn))
                     {
                         picker.getConnection().Execute(cmd);
@@ -50,14 +52,16 @@ namespace IDCM.IDB.DAM
                 if (seqIds.Count == 0)
                 {
                     BaseInfoNote dbvn = new BaseInfoNote();
-                    string icmd = "insert into " + typeof(BaseInfoNote).Name + "(seqId) values(" + dbvn.SeqId + ");";
+                    string icmd = "insert into " + typeof(BaseInfoNote).Name + "(seqId) values(@SeqId);";
+                    icmd = SQLiteUtil.parameterizedSQLEscape(icmd, dbvn.SeqId);
                     picker.getConnection().Execute(icmd);
                     autoIncrementNum = dbvn.SeqId;
                 }
                 else
                 {
                     autoIncrementNum = seqIds[0] + 10;
-                    string cmd = "update " + typeof(BaseInfoNote).Name + " set seqId=" + autoIncrementNum;
+                    string cmd = "update " + typeof(BaseInfoNote).Name + " set seqId=@autoIncrementNum";//更新BaseInfoNote seqId
+                    cmd = SQLiteUtil.parameterizedSQLEscape(cmd, typeof(BaseInfoNote), autoIncrementNum);
                     picker.getConnection().Execute(cmd);
                 }
             }

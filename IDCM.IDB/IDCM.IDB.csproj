@@ -66,12 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CVNameWrapper.cs" />
     <Compile Include="DAM\BaseInfoNote.cs" />
     <Compile Include="DAM\BaseInfoNoteDAM.cs" />
     <Compile Include="DAM\CTDRecord.cs" />
     <Compile Include="DAM\CTDRecordDAM.cs" />
     <Compile Include="DAM\CTDRecordMap.cs" />
+    <Compile Include="DAM\CTDRecordMapDAM.cs" />
     <Compile Include="DAM\DAMBase.cs" />
     <Compile Include="DataSupporter.cs" />
     <Compile Include="DBSpaceKeeper.cs" />

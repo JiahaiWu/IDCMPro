@@ -8,11 +8,11 @@ namespace IDCM.IDB.DAM
 {
     public class CTDRecordMap
     {
-        private string attr { get; set; }
-        private string alias { get; set; }
-        private string viewOrder { get; set; }
-        private string dbOrder { get; set; }
-        private bool hide { get; set; }
+        public string attr { get; set; }
+        public string alias { get; set; }
+        public string viewOrder { get; set; }
+        public string dbOrder { get; set; }
+        public bool hide { get; set; }
         public const string KeyName = "attr";
     }
 }

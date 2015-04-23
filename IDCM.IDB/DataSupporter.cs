@@ -152,22 +152,7 @@ namespace IDCM.IDB
                 return res[0];
             return -2;
         }
-        /// <summary>
-        /// 对批量执行SQL的返回结果值的全部完成标识判断
-        /// </summary>
-        /// <param name="exeResults"></param>
-        /// <returns></returns>
-        public static bool checkExecuteOk(params int[] exeResults)
-        {
-            if (exeResults == null || exeResults.Length == 0)
-                return false;
-            foreach(int res in exeResults)
-            {
-                if (res < 0)
-                    return false;
-            }
-            return true;
-        }
+
         private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
     }
 }
